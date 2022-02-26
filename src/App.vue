@@ -1,17 +1,18 @@
 <template>
   <div>
-    <HeaderDefault></HeaderDefault>
-    <FooterDefault></FooterDefault>
+		<HeaderComp/>
+		<FooterComp/>
   </div>
 </template>
 
 <script>
-import HeaderDefault from "@/components/HeaderDefault.vue";
-import FooterDefault from "@/components/FooterDefault.vue";
+import HeaderComp from './components/HeaderComp';
+import FooterComp from './components/FooterComp';
+
 export default {
 	components: {
-		HeaderDefault,
-		FooterDefault
+		HeaderComp,
+		FooterComp
 	},
   data: () => {
 
