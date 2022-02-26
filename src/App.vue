@@ -4,19 +4,25 @@
       <v-row class="mt-10">
         <v-col
           cols = "6"
-          class=""
         >
-          <v-row>
-            <CourseCard/>
-            <CourseCard/>
+
+          <v-row class="mt-10">
+            <v-col
+              v-for="(n, index) in 2"
+              cols = "6"
+              v-bind:key="n"
+            >
+              <course-card :course-name="coursesMainPage[index].name" :course-description="coursesMainPage[index].description"/>
+            </v-col>
           </v-row>
         </v-col>
+
         <v-divider
-            vertical="true"
+            vertical
         ></v-divider>
+
         <v-col
           cols = "6"
-          class=""
         >
         </v-col>
       </v-row>
@@ -35,8 +41,11 @@ export default {
 		FooterComp,
     CourseCard
 	},
-  data: () => {
-
+  data () {
+    return {
+      coursesMainPage: [{name: "Test1", description: "description1"}, {name: "Test2", description: "description2"},
+        {name: "Test3", description: "description3"}, {name: "Test4", description: "description4"}]
+    }
   }
 }
 </script>
