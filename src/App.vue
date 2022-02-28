@@ -6,13 +6,14 @@
           cols = "6"
         >
 
-          <v-row class="mt-10">
+          <v-row
+          >
             <v-col
-              v-for="(n, index) in 2"
+              v-for="element in coursesMainPage"
               cols = "6"
-              v-bind:key="n"
+              :key="element"
             >
-              <course-card :course-name="coursesMainPage[index].name" :course-description="coursesMainPage[index].description"/>
+              <course-card :course-name="element.name" :course-description="element.description"/>
             </v-col>
           </v-row>
         </v-col>
