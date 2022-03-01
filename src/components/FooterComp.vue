@@ -1,5 +1,5 @@
 <template>
-  <v-footer class = "vfooter">
+  <v-footer class = "pa-0 mt-5">
     <v-card
       elevation="0"
       rounded="0"
@@ -34,8 +34,5 @@
 </template>
 
 <style lang="css" scoped>
-.vfooter {
-	margin-top: 100px;
-	padding: 0;
-}
+
 </style>
