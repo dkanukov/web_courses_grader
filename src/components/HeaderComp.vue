@@ -7,19 +7,19 @@
         cols = "3"
         class="pl-15"
       >
-        <v-btn class="">Главная</v-btn>
+        <v-btn @click="$router.push('/')" class="">Главная</v-btn>
       </v-col>
       <v-col
           cols = "3"
           class="pl-15"
       >
-        <v-btn class="">Главная</v-btn>
+        <v-btn @click="$router.push('/CoursePage')" class="">Курсы</v-btn>
       </v-col>
       <v-col
           cols = "3"
           class="pl-15"
       >
-        <v-btn class="">Главная</v-btn>
+        <v-btn class="">Настройки</v-btn>
       </v-col>
       <v-col
           cols = "3"

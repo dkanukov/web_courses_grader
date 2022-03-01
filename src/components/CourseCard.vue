@@ -1,21 +1,19 @@
 <template>
   <v-card
       class="mx-auto"
-      max-width="400px"
-      max-height="400px"
+      max-width="300px"
+      max-height="300px"
   >
     <v-img
         src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
         height="200px"
     ></v-img>
 
-    <v-card-title>
-      Test course name
-      {{  courseName }}
+    <v-card-title class="pt-0 pb-0">
+      {{ courseName }}
     </v-card-title>
 
-    <v-card-subtitle>
-      Test course description
+    <v-card-subtitle class="">
       {{ courseDescription }}
     </v-card-subtitle>
 
