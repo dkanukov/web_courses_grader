@@ -1,12 +1,28 @@
 <template>
   <div>
     <HeaderComp/>
-    <v-row justify="end">
-      <h3 class="mr-10 mt-5">Place for filters</h3>
+    <v-row>
+
+      <v-spacer/>
+
+      <v-col
+      cols="5"
+      align-self="center"
+      >
+        <v-row >
+          <v-checkbox color="info" label="В разработке"></v-checkbox>
+          <v-checkbox color="info" label="Закрыт"></v-checkbox>
+          <v-checkbox color="info" label="В процессе"></v-checkbox>
+        </v-row>
+      </v-col>
+
+      <v-col>
+        <v-text-field v-model.trim="inputSearch" label="Введите название курса"/>
+      </v-col>
     </v-row>
     <v-row>
       <v-col
-      v-for="element in coursesPage"
+      v-for="element in filteredCourses"
       cols="3"
       :key="element"
       >
@@ -46,7 +62,19 @@ export default {
         {name: "Test2", status: false, groups: 0},
         {name: "Test3", status: true, groups: 22},
         {name: "Test4", status: false, groups: 0}
-      ]
+      ],
+      inputSearch: "",
+    }
+  },
+  methods: {
+
+  },
+  computed: {
+    filteredCourses: function () {
+      let i = this
+      return this.coursesPage.filter(function (element) {
+        return element.name.toLowerCase().indexOf(i.inputSearch.toLowerCase()) !== -1
+      })
     }
   }
 }
