@@ -20,7 +20,9 @@
         <v-text-field v-model.trim="inputSearch" label="Введите название курса"/>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row
+        v-if="filteredCourses.length !== 0"
+    >
       <v-col
       v-for="element in filteredCourses"
       cols="3"
@@ -32,6 +34,12 @@
             :courseGroupsNum="element.groups"
         />
       </v-col>
+    </v-row>
+    <v-row
+    justify="center"
+    v-else
+    >
+      <h2 class="text-red font-weight-bold">Курс не найден, проверьте название</h2>
     </v-row>
     <v-row justify="center" class="mt-5">
       <v-pagination
