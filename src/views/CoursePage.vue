@@ -10,7 +10,11 @@
       cols="3"
       :key="element"
       >
-        <CourseCard :course-name="element.name" :course-description="element.description"/>
+        <CourseCard
+            :course-name="element.name"
+            :course-status="element.status"
+            :courseGroupsNum="element.groups"
+        />
       </v-col>
     </v-row>
     <v-row justify="center" class="mt-5">
@@ -37,8 +41,12 @@ export default {
   },
   data () {
     return {
-      coursesPage: [{name: "Test1", description: "description1"}, {name: "Test2", description: "description2"},
-        {name: "Test3", description: "description3"}, {name: "Test4", description: "description4"}]
+      coursesPage: [
+        {name: "Test1", status: true, groups: 10},
+        {name: "Test2", status: false, groups: 0},
+        {name: "Test3", status: true, groups: 22},
+        {name: "Test4", status: false, groups: 0}
+      ]
     }
   }
 }

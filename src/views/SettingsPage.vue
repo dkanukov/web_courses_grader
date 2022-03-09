@@ -6,6 +6,8 @@
           class="pt-10 pl-10"
       >
         <v-img
+            style="cursor: pointer"
+            @click="$router.push('/')"
             max-height="70"
             max-width="70"
             :src="require('../assets/back_row.svg')"
