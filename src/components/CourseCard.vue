@@ -18,7 +18,7 @@
 
       <v-col align-self="center">
         <v-card-subtitle>
-          <div v-if="courseStatus==true" class="text-green font-weight-bold "> {{ courseGroupsNum }} / 30 </div>
+          <div v-if="courseStatus=='inAction'" class="text-green font-weight-bold "> {{ courseGroupsNum }} / 30 </div>
           <div v-else class="text-red font-weight-bold"> 0 / 30</div>
         </v-card-subtitle>
       </v-col>
@@ -29,7 +29,7 @@
       <v-col cols="6" class="">
         <v-row>
           <p>Статус:</p>
-          <p v-if="courseStatus==true" class="text-green pl-1">В процессе</p>
+          <p v-if="courseStatus=='inAction'" class="text-green pl-1">В процессе</p>
           <p v-else class="text-red pl-1"> Закрыт </p>
         </v-row>
       </v-col>
@@ -53,7 +53,7 @@ export default {
   props: {
     courseName: String,
     courseDescription: String,
-    courseStatus: Boolean,
+    courseStatus: String,
     courseGroupsNum: Number
   }
 }
