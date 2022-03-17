@@ -33,7 +33,6 @@
             :course-status="element.status"
             :courseGroupsNum="element.groups"
         />
-        {{ categories }}
       </v-col>
     </v-row>
     <v-row
@@ -70,7 +69,7 @@ export default {
         {name: "Test1", status: "inAction", groups: 10},
         {name: "Test2", status: "closed", groups: 0},
         {name: "Test3", status: "inAction", groups: 22},
-        {name: "Test4", status: "closed", groups: 0}
+        {name: "Test4", status: "inDev", groups: 0},
       ],
       inputSearch: "",
       categories: []
@@ -87,9 +86,11 @@ export default {
       .filter(function (element) {
         let data = element.name.toLowerCase().indexOf(i.inputSearch.toLowerCase()) !== -1
         if (filters.length !== 0) {
-          // console.log(filters)
+          console.log(filters)
+          console.log(filters[0])
           // console.log(element)
-          data = element.status.toLowerCase().includes(filters[0])
+          data = filters.includes(element.status)
+          console.log(data)
           console.log(typeof data)
         }
         return data

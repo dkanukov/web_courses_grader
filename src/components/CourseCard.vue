@@ -18,7 +18,8 @@
 
       <v-col align-self="center">
         <v-card-subtitle>
-          <div v-if="courseStatus=='inAction'" class="text-green font-weight-bold "> {{ courseGroupsNum }} / 30 </div>
+          <div v-if="courseStatus==='inAction'" class="text-green font-weight-bold "> {{ courseGroupsNum }} / 30</div>
+          <div v-else-if="courseStatus==='inDev'" class="text-orange font-weight-bold"> 0 / 30</div>
           <div v-else class="text-red font-weight-bold"> 0 / 30</div>
         </v-card-subtitle>
       </v-col>
@@ -26,23 +27,25 @@
 
     <v-row>
       <v-spacer/>
-      <v-col cols="6" class="">
-        <v-row>
-          <p>Статус:</p>
-          <p v-if="courseStatus=='inAction'" class="text-green pl-1">В процессе</p>
-          <p v-else class="text-red pl-1"> Закрыт </p>
-        </v-row>
-      </v-col>
+
     </v-row>
 
-    <v-card-actions>
-      <v-btn
-          color="primary"
-          text
-      >
-        Просмотр
-      </v-btn>
-      <v-spacer></v-spacer>
+    <v-card-actions class="mt-5">
+      <v-row>
+        <v-col cols="4">
+          <v-btn
+              color="primary"
+              text
+          >
+            Просмотр
+          </v-btn>
+        </v-col>
+        <v-col cols="8" class="pl-8" align-self="center">
+          <p v-if="courseStatus==='inAction'" class="text-green pl-1">Статус: В процессе</p>
+          <p v-else-if="courseStatus==='inDev'" class="text-orange">Статус: В разработке</p>
+          <p v-else class="text-red pl-1">Статус: Закрыт </p>
+      </v-col>
+      </v-row>
     </v-card-actions>
 
   </v-card>
