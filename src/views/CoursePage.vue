@@ -80,15 +80,18 @@ export default {
   },
   computed: {
     filteredCourses: function () {
-      let i = this
-      let filters = this.categories
+      let i = this;
+      let filters = this.categories;
       return this.coursesPage
       .filter(function (element) {
-        let data = element.name.toLowerCase().indexOf(i.inputSearch.toLowerCase()) !== -1
+        let data = true;
         if (filters.length !== 0) {
-          data = filters.includes(element.status)
+          data = filters.includes(element.status);
         }
-        return data
+        return data;
+      })
+      .filter(function (element) {
+        return element.name.toLowerCase().indexOf(i.inputSearch.toLowerCase()) !== -1;
       })
     }
   }
