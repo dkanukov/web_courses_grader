@@ -86,12 +86,7 @@ export default {
       .filter(function (element) {
         let data = element.name.toLowerCase().indexOf(i.inputSearch.toLowerCase()) !== -1
         if (filters.length !== 0) {
-          console.log(filters)
-          console.log(filters[0])
-          // console.log(element)
           data = filters.includes(element.status)
-          console.log(data)
-          console.log(typeof data)
         }
         return data
       })
