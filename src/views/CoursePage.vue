@@ -43,7 +43,8 @@
     </v-row>
     <v-row justify="center" class="mt-5">
       <v-pagination
-        :length="4"
+        :length="paginationLength"
+        v-model="page"
       >
 
       </v-pagination>
@@ -66,13 +67,23 @@ export default {
   data () {
     return {
       coursesPage: [
-        {name: "Test1", status: "inAction", groups: 10},
-        {name: "Test2", status: "closed", groups: 0},
-        {name: "Test3", status: "inAction", groups: 22},
-        {name: "Test4", status: "inDev", groups: 0},
+        {index: 1, name: "Test1", status: "inAction", groups: 10},
+        {index: 2, name: "Test2", status: "closed", groups: 0},
+        {index: 3, name: "Test3", status: "inAction", groups: 22},
+        {index: 4, name: "Test4", status: "inDev", groups: 0},
+        {index: 5, name: "Test5", status: "inAction", groups: 10},
+        {index: 6, name: "Test6", status: "closed", groups: 0},
+        {index: 7, name: "Test7", status: "inAction", groups: 22},
+        {index: 8, name: "Test8", status: "inDev", groups: 0},
+        {index: 9, name: "Test9", status: "inAction", groups: 10},
+        {index: 10, name: "Test10", status: "closed", groups: 0},
+        {index: 11, name: "Test11", status: "inAction", groups: 22},
+        {index: 12, name: "Test12", status: "inDev", groups: 0},
       ],
       inputSearch: "",
-      categories: []
+      categories: [],
+      maxCardsPerPage: 4,
+      page: 1
     }
   },
   methods: {
@@ -82,17 +93,29 @@ export default {
     filteredCourses: function () {
       let i = this;
       let filters = this.categories;
-      return this.coursesPage
+      let sortCourses;
+      if (this.page === 1) {
+        sortCourses = this.coursesPage.splice(0, 4)
+        console.log(sortCourses)
+      }
+      else {
+        sortCourses = this.coursesPage.splice(this.page * 4 - 4, 4);
+        console.log(sortCourses)
+      }
+
+      return sortCourses
       .filter(function (element) {
-        let data = true;
-        if (filters.length !== 0) {
-          data = filters.includes(element.status);
-        }
-        return data;
+        if (filters.length !== 0)
+          return filters.includes(element.status);
+        else
+          return true
       })
       .filter(function (element) {
         return element.name.toLowerCase().indexOf(i.inputSearch.toLowerCase()) !== -1;
       })
+    },
+    paginationLength: function () {
+      return this.coursesPage.length / 4 + 1
     }
   }
 }
