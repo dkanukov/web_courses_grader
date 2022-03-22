@@ -71,10 +71,12 @@ export default {
         {index: 2, name: "Test2", status: "closed", groups: 0},
         {index: 3, name: "Test3", status: "inAction", groups: 22},
         {index: 4, name: "Test4", status: "inDev", groups: 0},
+
         {index: 5, name: "Test5", status: "inAction", groups: 10},
         {index: 6, name: "Test6", status: "closed", groups: 0},
         {index: 7, name: "Test7", status: "inAction", groups: 22},
         {index: 8, name: "Test8", status: "inDev", groups: 0},
+
         {index: 9, name: "Test9", status: "inAction", groups: 10},
         {index: 10, name: "Test10", status: "closed", groups: 0},
         {index: 11, name: "Test11", status: "inAction", groups: 22},
@@ -82,8 +84,7 @@ export default {
       ],
       inputSearch: "",
       categories: [],
-      maxCardsPerPage: 4,
-      page: 1
+      page: 1,
     }
   },
   methods: {
@@ -93,17 +94,16 @@ export default {
     filteredCourses: function () {
       let i = this;
       let filters = this.categories;
-      let sortCourses;
+      let courses = this.coursesPage;
+      let shortList;
       if (this.page === 1) {
-        sortCourses = this.coursesPage.splice(0, 4)
-        console.log(sortCourses)
+        shortList = courses.slice(0, 4);
+        console.log(shortList);
+      } else {
+        shortList = courses.slice((this.page - 1) * 4, 4 * this.page);
+        console.log(shortList);
       }
-      else {
-        sortCourses = this.coursesPage.splice(this.page * 4 - 4, 4);
-        console.log(sortCourses)
-      }
-
-      return sortCourses
+      return shortList
       .filter(function (element) {
         if (filters.length !== 0)
           return filters.includes(element.status);
@@ -115,7 +115,7 @@ export default {
       })
     },
     paginationLength: function () {
-      return this.coursesPage.length / 4 + 1
+      return this.coursesPage.length / 4
     }
   }
 }
