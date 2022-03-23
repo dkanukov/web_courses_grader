@@ -1,32 +1,51 @@
 <template>
   <v-card
       class="mx-auto"
-      max-width="400px"
-      max-height="400px"
+      max-width="300px"
+      max-height="300px"
   >
     <v-img
         src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
         height="200px"
     ></v-img>
 
-    <v-card-title>
-      Test course name
-      {{  courseName }}
-    </v-card-title>
+    <v-row>
+      <v-col align-self="center">
+        <v-card-title class="pt-0 pb-0">
+          {{ courseName }}
+        </v-card-title>
+      </v-col>
 
-    <v-card-subtitle>
-      Test course description
-      {{ courseDescription }}
-    </v-card-subtitle>
+      <v-col align-self="center">
+        <v-card-subtitle>
+          <div v-if="courseStatus==='inAction'" class="text-green font-weight-bold "> {{ courseGroupsNum }} / 30</div>
+          <div v-else-if="courseStatus==='inDev'" class="text-orange font-weight-bold"> 0 / 30</div>
+          <div v-else class="text-red font-weight-bold"> 0 / 30</div>
+        </v-card-subtitle>
+      </v-col>
+    </v-row>
 
-    <v-card-actions>
-      <v-btn
-          color="primary"
-          text
-      >
-        Просмотр
-      </v-btn>
-      <v-spacer></v-spacer>
+    <v-row>
+      <v-spacer/>
+
+    </v-row>
+
+    <v-card-actions class="mt-5">
+      <v-row>
+        <v-col cols="4">
+          <v-btn
+              color="primary"
+              text
+          >
+            Просмотр
+          </v-btn>
+        </v-col>
+        <v-col cols="8" class="pl-8" align-self="center">
+          <p v-if="courseStatus==='inAction'" class="text-green pl-1">Статус: В процессе</p>
+          <p v-else-if="courseStatus==='inDev'" class="text-orange">Статус: В разработке</p>
+          <p v-else class="text-red pl-1">Статус: Закрыт </p>
+      </v-col>
+      </v-row>
     </v-card-actions>
 
   </v-card>
@@ -36,7 +55,9 @@
 export default {
   props: {
     courseName: String,
-    courseDescription: String
+    courseDescription: String,
+    courseStatus: String,
+    courseGroupsNum: Number
   }
 }
 </script>
