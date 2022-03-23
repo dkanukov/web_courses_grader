@@ -43,7 +43,7 @@
     </v-row>
     <v-row justify="center" class="mt-5">
       <v-pagination
-        :length="paginationLength"
+        :length="3"
         v-model="page"
       >
 
@@ -105,17 +105,9 @@ export default {
       }
       return shortList
       .filter(function (element) {
-        if (filters.length !== 0)
-          return filters.includes(element.status);
-        else
-          return true
+        return ((element.name.toLowerCase().indexOf(i.inputSearch.toLowerCase()) !== -1 && filters.includes(element.status))
+            || (element.name.toLowerCase().indexOf(i.inputSearch.toLowerCase()) !== -1 && filters.length === 0));
       })
-      .filter(function (element) {
-        return element.name.toLowerCase().indexOf(i.inputSearch.toLowerCase()) !== -1;
-      })
-    },
-    paginationLength: function () {
-      return this.coursesPage.length / 4
     }
   }
 }
