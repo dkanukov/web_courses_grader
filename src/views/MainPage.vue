@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComp/>
-    <v-row class="mt-10 ml-5">
+    <v-row class="mt-5 ml-5">
       <v-col
           cols = "6"
       >

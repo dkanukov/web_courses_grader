@@ -34,6 +34,7 @@
       <v-row>
         <v-col cols="4">
           <v-btn
+              @click="$router.push('/CourseView')"
               color="primary"
               text
           >

@@ -1,5 +1,5 @@
 <template>
-  <v-footer class = "pa-0 mt-5">
+  <v-footer class = "pa-0 mt-5" app bottom fixed padless width="100%">
     <v-card
       elevation="0"
       rounded="0"
@@ -26,9 +26,6 @@
 
       <v-divider></v-divider>
 
-      <v-card-text class="text-white">
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
-      </v-card-text>
     </v-card>
   </v-footer>
 </template>

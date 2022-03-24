@@ -21,6 +21,7 @@
       </v-col>
     </v-row>
     <v-row
+        class="mt-13"
         v-if="filteredCourses.length !== 0"
     >
       <v-col
@@ -41,9 +42,9 @@
     >
       <h2 class="text-red font-weight-bold">Курс не найден, проверьте название</h2>
     </v-row>
-    <v-row justify="center" class="mt-5">
+    <v-row justify="center" class="mt-5" v-show="paginationLength !== 0">
       <v-pagination
-        :length="3"
+        :length="paginationLength"
         v-model="pageStatus.page"
       >
 
@@ -57,7 +58,6 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCard";
-// import _ from 'lodash'
 export default {
   name: "CoursePage",
   components: {
@@ -82,6 +82,11 @@ export default {
         {index: 10, name: "Test10", status: "closed", groups: 0},
         {index: 11, name: "Test11", status: "inAction", groups: 22},
         {index: 12, name: "Test12", status: "inDev", groups: 0},
+
+        {index: 9, name: "Test9", status: "inAction", groups: 10},
+        {index: 10, name: "Test10", status: "closed", groups: 0},
+        {index: 11, name: "Test11", status: "inAction", groups: 22},
+        {index: 12, name: "Test12", status: "inDev", groups: 0},
       ],
       pageStatus: {
         inputSearch: "",
@@ -96,10 +101,8 @@ export default {
       if (this.filteredCourses.length >= 4) {
         if (status.page === 1) {
           this.displayCourses = this.filteredCourses.slice(0, 4)
-          console.log(this.displayCourses);
         } else {
           this.displayCourses = this.filteredCourses.slice((this.pageStatus.page - 1) * 4, 4 * this.pageStatus.page);
-          console.log(this.displayCourses);
         }
       } else {
         this.displayCourses = this.filteredCourses
@@ -115,6 +118,9 @@ export default {
             return ((element.name.toLowerCase().indexOf(i.pageStatus.inputSearch.toLowerCase()) !== -1 && filters.includes(element.status))
                 || (element.name.toLowerCase().indexOf(i.pageStatus.inputSearch.toLowerCase()) !== -1 && filters.length === 0));
           })
+    },
+    paginationLength: function () {
+      return this.filteredCourses.length / 4;
     }
   },
   watch: {
