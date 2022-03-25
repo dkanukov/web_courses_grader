@@ -34,7 +34,7 @@
       <v-row>
         <v-col cols="4">
           <v-btn
-              @click="$router.push('/CourseView')"
+              @click="submit"
               color="primary"
               text
           >
@@ -53,12 +53,26 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 export default {
   props: {
     courseName: String,
     courseDescription: String,
     courseStatus: String,
     courseGroupsNum: Number
-  }
+  },
+  computed: {
+    ...mapMutations(["pushCourseInfo"]),
+  },
+  methods: {
+    submit() {
+      this.$router.push('/CourseView');
+      this.pushCourseInfo({
+        courseName: this.courseName,
+        courseStatus: this.courseStatus,
+        courseGroupsNum: this.courseGroupsNum
+      })
+    }
+  },
 }
 </script>

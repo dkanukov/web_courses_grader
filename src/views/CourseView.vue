@@ -3,7 +3,7 @@
     <HeaderComp/>
     <div>
       <v-row class="mt-5" justify="center">
-        <h2>Course name</h2>
+        <h2>{{ getCourseInfo.courseName }}</h2>
       </v-row>
       <v-row class="mt-16">
         <v-spacer/>
@@ -13,7 +13,7 @@
                 text
                 color="primary"
                 x-large
-                block
+                block=true
             >
               Добавить задание</v-btn>
           </v-row>
@@ -22,7 +22,7 @@
                 text
                 color="primary"
                 x-large
-                block
+                block=true
             >
               Редактировать курс</v-btn>
           </v-row>
@@ -31,7 +31,7 @@
                 text
                 color="primary"
                 x-large
-                block
+                block=true
             >
               Просмотр наборов</v-btn>
           </v-row>
@@ -40,7 +40,7 @@
                 text
                 color="error"
                 x-large
-                block
+                block=true
             >
               Закрыть курс</v-btn>
           </v-row>
@@ -58,17 +58,22 @@
 <script>
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
+import {mapGetters} from 'vuex'
 export default {
   name: "CourseView",
   components: {
     HeaderComp,
     FooterComp
   },
-  props: {
-    courseName: String,
-    courseStatus: String,
-    courseGroupsNum: Number
-  }
+  data() {
+    return {
+
+    }
+  },
+  computed: {
+    ...mapGetters(["getCourseInfo"]),
+  },
+
 }
 </script>
 
