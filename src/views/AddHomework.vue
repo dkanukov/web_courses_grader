@@ -19,21 +19,46 @@
       </v-col>
     </v-row>
 
-    <v-col class="ml-15 mt-16">
-      <v-form>
-        <v-switch
-            color="info"
-            label="Опубликовать сразу"
-            v-model="publicate"
-        >
+    <v-row>
+      <v-col class="ml-15 mt-16">
+        <v-form>
+          <v-switch
+              class="ml-10"
+              color="info"
+              label="Опубликовать сразу"
+              v-model="publicate"
+          >
+          </v-switch>
 
-        </v-switch>
-      </v-form>
-    </v-col>
+          <v-text-field
+              class="ml-10"
+              label="Название домашнего задания"
+              v-model="newHomeWork.homeworkName"
+              hide-details="auto"
+              :rules="inputHomeworkRules"
+          >
+          </v-text-field>
 
-    <v-col></v-col>
+          <v-file-input
+              class="mt-15"
+              label="Тесты для проверки"
+          >
 
-    <v-col></v-col>
+          </v-file-input>
+
+          <v-file-input
+              class="mt-5"
+            label="Дополнительные файлы"
+          >
+
+          </v-file-input>
+        </v-form>
+      </v-col>
+
+      <v-col></v-col>
+
+      <v-col></v-col>
+    </v-row>
 
   </div>
 </template>
@@ -43,7 +68,13 @@ export default {
   name: "AddHomework",
   data() {
     return {
-      publicate: false
+      publicate: false,
+      newHomeWork: {
+        homeworkName: ""
+      },
+      inputHomeworkRules: [
+          value => !!value || 'Введите название'
+      ]
     }
   },
 }
