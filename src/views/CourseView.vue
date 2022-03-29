@@ -14,6 +14,7 @@
                 color="primary"
                 x-large
                 block=true
+                @click="$router.push('/CourseView/AddHomework')"
             >
               Добавить задание</v-btn>
           </v-row>

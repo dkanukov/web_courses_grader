@@ -100,7 +100,7 @@ export default {
     trimCourses(status) {
       if (this.filteredCourses.length >= 4) {
         if (status.page === 1) {
-          this.displayCourses = this.filteredCourses.slice(0, 4)
+          this.displayCourses = this.filteredCourses.slice(0, 4);
         } else {
           this.displayCourses = this.filteredCourses.slice((this.pageStatus.page - 1) * 4, 4 * this.pageStatus.page);
         }

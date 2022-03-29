@@ -3,6 +3,7 @@ import MainPage from "@/views/MainPage";
 import CoursePage from "@/views/CoursePage";
 import SettingsPage from "@/views/SettingsPage";
 import CourseView from "@/views/CourseView";
+import AddHomework from "@/views/AddHomework";
 
 const routes = [
   {
@@ -20,6 +21,10 @@ const routes = [
   {
     path: '/CourseView',
     component: CourseView
+  },
+  {
+    path: '/CourseView/AddHomework',
+    component: AddHomework
   }
 ]
 
