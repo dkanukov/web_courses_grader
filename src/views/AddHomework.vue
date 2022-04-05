@@ -1,13 +1,13 @@
 <template>
   <div>
 
-    <v-row>
-      <v-col cols="1"/>
+    <v-row align="center">
       <v-col
           cols="3"
+          class="ml-15"
       >
         <v-img
-            class="mt-10"
+            class="mt-10 ml-5"
             style="cursor: pointer"
             @click="$router.push('/CourseView')"
             max-height="70px"
@@ -17,16 +17,19 @@
 
         </v-img>
       </v-col>
+      <v-col>
+        <h1 class="ml-15 pt-5">Добавление домашнего задания</h1>
+      </v-col>
     </v-row>
 
-    <v-row>
-      <v-col class="ml-15 mt-16">
-        <v-form>
+    <v-form>
+      <v-row>
+        <v-col class="ml-15 mt-16" cols="5">
           <v-switch
               class="ml-10"
               color="info"
               label="Опубликовать сразу"
-              v-model="publicate"
+              v-model="newHomeWork.publicate"
           >
           </v-switch>
 
@@ -42,23 +45,37 @@
           <v-file-input
               class="mt-15"
               label="Тесты для проверки"
+              hide-details="auto"
+
           >
 
           </v-file-input>
 
           <v-file-input
               class="mt-5"
-            label="Дополнительные файлы"
+              label="Дополнительные файлы задания"
+              hide-details="auto"
           >
 
           </v-file-input>
-        </v-form>
-      </v-col>
+        </v-col>
 
-      <v-col></v-col>
+        <v-spacer/>
 
-      <v-col></v-col>
-    </v-row>
+        <v-col class="mt-16 mr-16" cols="5">
+          <h2 class="text_area">Текст задания</h2>
+          <v-textarea class="mt-15"
+            v-model="newHomeWork.homeWorkText"
+          />
+          <v-row class="mt-2" justify="space-around">
+            <v-btn color="primary">Опубликовать</v-btn>
+            <v-btn color="error">Отменить</v-btn>
+          </v-row>
+        </v-col>
+
+
+      </v-row>
+  </v-form>
 
   </div>
 </template>
@@ -68,12 +85,15 @@ export default {
   name: "AddHomework",
   data() {
     return {
-      publicate: false,
       newHomeWork: {
-        homeworkName: ""
+        publicate: true,
+        homeworkName: "",
+        homeWorkText: ""
       },
       inputHomeworkRules: [
-          value => !!value || 'Введите название'
+        value => !!value || 'Введите название',
+        value => (value && value.length >= 3) || 'Название должно содержать больше 3 символов',
+        value => (value && value.length >= 3) || 'Название должно содержать меньше 10 символов'
       ]
     }
   },
@@ -81,5 +101,7 @@ export default {
 </script>
 
 <style scoped>
-
+.text_area {
+  margin-left: 200px;
+}
 </style>
