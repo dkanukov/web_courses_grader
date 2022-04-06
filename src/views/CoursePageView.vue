@@ -57,7 +57,7 @@
 <script>
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
-import CourseCard from "@/components/CourseCard";
+import CourseCard from "@/components/CourseCardComp";
 export default {
   name: "CoursePage",
   components: {

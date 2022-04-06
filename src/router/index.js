@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainPage from "@/views/MainPage";
-import CoursePage from "@/views/CoursePage";
-import SettingsPage from "@/views/SettingsPage";
+import MainPage from "@/views/MainPageView";
+import CoursePage from "@/views/CoursePageView";
+import SettingsPage from "@/views/SettingsPageView";
 import CourseView from "@/views/CourseView";
-import AddHomework from "@/views/AddHomework";
+import AddHomework from "@/views/AddHomeworkView";
 
 const routes = [
   {
