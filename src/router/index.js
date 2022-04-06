@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from "@/views/MainPageView";
-import CoursePage from "@/views/CoursePageView";
+import CoursePage from "@/views/AllCoursesView";
 import SettingsPage from "@/views/SettingsPageView";
 import CourseView from "@/views/CourseView";
 import AddHomework from "@/views/AddHomeworkView";
+import CourseEditorView from "@/views/CourseEditorView";
 
 const routes = [
   {
@@ -25,6 +26,10 @@ const routes = [
   {
     path: '/CourseView/AddHomework',
     component: AddHomework
+  },
+  {
+    path: '/CourseView/CourseEditorView',
+    component: CourseEditorView
   }
 ]
 

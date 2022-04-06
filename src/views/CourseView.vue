@@ -24,6 +24,7 @@
                 color="primary"
                 x-large
                 block=true
+                @click="$router.push('/CourseView/CourseEditorView')"
             >
               Редактировать курс</v-btn>
           </v-row>
