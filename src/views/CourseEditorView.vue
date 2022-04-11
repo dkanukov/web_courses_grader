@@ -26,23 +26,49 @@
     <v-form class="" style="margin-top: 100px;">
       <v-row align="center" justify="space-around">
         <v-col cols="3">
-          <h3>Обложка курса</h3>
+          <v-row justify="center" class="mb-5">
+            <h2>Обложка курса</h2>
+          </v-row>
           <v-file-input
-              label="Загрузите файл"
+              label="Загрузите файл .png"
               accept=".png"
           />
         </v-col>
 
         <v-col cols="4">
-          <h3>Обложка курса</h3>
-          <v-text-field/>
+          <v-row justify="center" class="mb-5">
+            <h2>Описание курса</h2>
+          </v-row>
+          <v-text-field v-model="editedCourse.courseDescr"/>
         </v-col>
 
         <v-col cols="3">
-          <h3>Обложка курса</h3>
+          <v-row justify="center" class="mb-5">
+            <h2>Изменить почту</h2>
+          </v-row>
           <v-text-field/>
         </v-col>
+      </v-row>
 
+      <v-row class="mt-10">
+        <v-spacer/>
+        <v-col cols="4">
+          <v-row justify="space-around">
+              <v-btn
+                  x-large
+                  color="primary"
+              >
+                Сохранить
+              </v-btn>
+            <v-btn
+                x-large
+                color="error"
+            >
+              Отменить
+            </v-btn>
+          </v-row>
+        </v-col>
+        <v-spacer/>
       </v-row>
     </v-form>
 
@@ -54,7 +80,9 @@ export default {
   name: "CourseEditorView",
   data() {
     return {
-
+      editedCourse: {
+        courseDescr: ""
+      }
     }
   },
 }
