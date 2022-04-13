@@ -23,13 +23,14 @@
       <v-col cols="4"/>
     </v-row>
 
-    <v-form class="" style="margin-top: 100px;">
+    <v-form ref="form" style="margin-top: 100px;" lazy-validation>
       <v-row align="center" justify="space-around">
         <v-col cols="3">
           <v-row justify="center" class="mb-5">
             <h2>Обложка курса</h2>
           </v-row>
           <v-file-input
+              hide-details="auto"
               label="Загрузите файл .png"
               accept=".png"
           />
@@ -39,18 +40,43 @@
           <v-row justify="center" class="mb-5">
             <h2>Описание курса</h2>
           </v-row>
-          <v-text-field v-model="editedCourse.courseDescr"/>
+          <v-text-field
+              v-model="editedCourse.courseDescr"
+              hide-details="auto"
+          />
         </v-col>
 
         <v-col cols="3">
           <v-row justify="center" class="mb-5">
             <h2>Изменить почту</h2>
           </v-row>
-          <v-text-field/>
+          <v-text-field
+            required
+            :rules="emailRules"
+            v-model="editedCourse.newEmail"
+            hide-details="auto"
+          />
         </v-col>
       </v-row>
 
-      <v-row class="mt-10">
+      <v-row class="mt-15">
+        <v-spacer/>
+        <v-col cols="3">
+          <v-select
+              class="text-no-wrap"
+              :items="courseStatus"
+          />
+        </v-col>
+        <v-spacer/>
+        <v-col cols="3">
+          <v-select
+            :items="courseType"
+          />
+        </v-col>
+        <v-spacer/>
+      </v-row>
+
+      <v-row class="mt-15">
         <v-spacer/>
         <v-col cols="4">
           <v-row justify="space-around">
@@ -70,6 +96,7 @@
         </v-col>
         <v-spacer/>
       </v-row>
+      <v-btn class="purple darken-2 white--text mt-5"  @click="submitForm"> Register </v-btn>
     </v-form>
 
   </div>
@@ -81,9 +108,21 @@ export default {
   data() {
     return {
       editedCourse: {
-        courseDescr: ""
-      }
+        courseDescr: "",
+        newEmail: ""
+      },
+      courseType: ["Открытый", "Закрытый"],
+      courseStatus: ["Открыт", "В разработке", "Закрыт"],
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'E-mail must be valid',
+      ]
     }
+  },
+  methods: {
+    submitForm () {
+      this.$refs.form.validate();
+    },
   },
 }
 </script>
