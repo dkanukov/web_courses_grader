@@ -25,17 +25,6 @@
 
     <v-form ref="form" style="margin-top: 100px;" lazy-validation>
       <v-row align="center" justify="space-around">
-        <v-col cols="3">
-          <v-row justify="center" class="mb-5">
-            <h2>Обложка курса</h2>
-          </v-row>
-          <v-file-input
-              hide-details="auto"
-              label="Загрузите файл .png"
-              accept=".png"
-          />
-        </v-col>
-
         <v-col cols="4">
           <v-row justify="center" class="mb-5">
             <h2>Описание курса</h2>
@@ -59,21 +48,27 @@
         </v-col>
       </v-row>
 
-      <v-row class="mt-15">
-        <v-spacer/>
+      <v-row class="mt-15" justify="space-around">
         <v-col cols="3">
+          <v-row justify="center" class="mb-5">
+            <h2>Изменить тип курса</h2>
+          </v-row>
           <v-select
               class="text-no-wrap"
               :items="courseStatus"
+              v-model="editedCourse.courseStatus"
           />
         </v-col>
-        <v-spacer/>
         <v-col cols="3">
+          <v-row justify="center" class="mb-5 ml-8">
+            <h2>Изменить тип курса</h2>
+          </v-row>
           <v-select
+              class="pl-15"
             :items="courseType"
+            v-model="editedCourse.courseType"
           />
         </v-col>
-        <v-spacer/>
       </v-row>
 
       <v-row class="mt-15">
@@ -83,12 +78,14 @@
               <v-btn
                   x-large
                   color="primary"
+                  @click="submitForm"
               >
                 Сохранить
               </v-btn>
             <v-btn
                 x-large
                 color="error"
+                @click="resetForm"
             >
               Отменить
             </v-btn>
@@ -96,7 +93,6 @@
         </v-col>
         <v-spacer/>
       </v-row>
-      <v-btn class="purple darken-2 white--text mt-5"  @click="submitForm"> Register </v-btn>
     </v-form>
 
   </div>
@@ -108,8 +104,10 @@ export default {
   data() {
     return {
       editedCourse: {
-        courseDescr: "",
-        newEmail: ""
+        courseDescr: "Описание которое потом получим с сервера",
+        newEmail: "testmail@gmail.com",
+        courseType: "Открытый",
+        courseStatus: "Закрыт",
       },
       courseType: ["Открытый", "Закрытый"],
       courseStatus: ["Открыт", "В разработке", "Закрыт"],
@@ -123,6 +121,9 @@ export default {
     submitForm () {
       this.$refs.form.validate();
     },
+    resetForm () {
+      this.$refs.form.reset();
+    }
   },
 }
 </script>
