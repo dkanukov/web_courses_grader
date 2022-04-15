@@ -19,7 +19,7 @@
           cols = "3"
           class="pl-15"
       >
-        <v-btn @click="$router.push('/SettingsPage')">Настройки</v-btn>
+        <v-btn @click="$router.push('')">Добавить курс</v-btn>
       </v-col>
       <v-col
           cols = "3"
