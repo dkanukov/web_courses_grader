@@ -1,5 +1,6 @@
 <template>
   <v-card
+      style="border-radius: 0"
       class="mx-auto"
       max-width="300px"
       max-height="300px"
@@ -9,14 +10,14 @@
         height="200px"
     ></v-img>
 
-    <v-row>
+    <v-row align="center">
       <v-col align-self="center">
         <v-card-title class="pt-0 pb-0">
           {{ courseName }}
         </v-card-title>
       </v-col>
 
-      <v-col align-self="center">
+      <v-col>
         <v-card-subtitle>
           <div v-if="courseStatus==='inAction'" class="text-green font-weight-bold "> {{ courseGroupsNum }} / 30</div>
           <div v-else-if="courseStatus==='inDev'" class="text-orange font-weight-bold"> 0 / 30</div>
