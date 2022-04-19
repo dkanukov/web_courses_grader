@@ -12,7 +12,7 @@
 
         </v-img>
       </v-col>
-      <v-col>
+      <v-col class="text-no-wrap">
         <h1>{{ title }}</h1>
       </v-col>
       <v-col/>

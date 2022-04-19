@@ -1,27 +1,6 @@
 <template>
   <div>
-
-    <v-row align="center">
-      <v-col
-          cols="3"
-          class="ml-15"
-      >
-        <v-img
-            class="mt-10 ml-5"
-            style="cursor: pointer"
-            @click="$router.push('/CourseView')"
-            max-height="70px"
-            max-width="70px"
-            :src="require('../assets/back_row.svg')"
-        >
-
-        </v-img>
-      </v-col>
-      <v-col>
-        <h1 class="ml-15 pt-5">Добавление домашнего задания</h1>
-      </v-col>
-    </v-row>
-
+    <HeaderComp title="Добавление домашнего задания" link="/CourseView"/>
     <v-form>
       <v-row>
         <v-col class="ml-15 mt-16" cols="5">
@@ -81,8 +60,12 @@
 </template>
 
 <script>
+import HeaderComp from "@/components/HeaderBackRowComp";
 export default {
   name: "AddHomework",
+  components: {
+    HeaderComp
+  },
   data() {
     return {
       newHomeWork: {

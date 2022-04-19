@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import HeaderComp from "@/components/HeaderBackRowComp"
-import FooterComp from '@/components/FooterComp';
+import HeaderComp from "@/components/HeaderBackRowComp";
+import FooterComp from "@/components/FooterComp";
 
 export default {
   name: "CreateCourseView",
