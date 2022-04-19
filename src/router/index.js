@@ -5,6 +5,7 @@ import SettingsPage from "@/views/SettingsPageView";
 import CourseView from "@/views/CourseView";
 import AddHomework from "@/views/AddHomeworkView";
 import CourseEditorView from "@/views/CourseEditorView";
+import CreateCourseView from "@/views/CreateCourseView";
 
 const routes = [
   {
@@ -30,6 +31,10 @@ const routes = [
   {
     path: '/CourseView/CourseEditorView',
     component: CourseEditorView
+  },
+  {
+    path: '/CreateCourseView',
+    component: CreateCourseView
   }
 ]
 
