@@ -1,24 +1,5 @@
-# grader_for_web_courses
+Для запуска сервера, нужно выполнить команду:
+        make init
+в корневой директории проекта
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Сервер будет работать на порте 8080
