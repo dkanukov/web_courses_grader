@@ -5,6 +5,9 @@
       <v-container>
         <v-row class="mt-15" justify="start">
           <h2>{{ getCourseInfo.courseName }}</h2>
+          <h2>{{ getCourseInfo.courseStatus }}</h2>
+          <h2>{{ getCourseInfo.courseType }}</h2>
+
         </v-row>
       </v-container>
       <v-row class="mt-16">
@@ -76,6 +79,7 @@ export default {
   },
   computed: {
     ...mapGetters(["getCourseInfo"]),
+
   },
 
 }

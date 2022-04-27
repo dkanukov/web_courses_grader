@@ -18,17 +18,13 @@
       </v-col>
 
       <v-col>
-        <v-card-subtitle>
-          <div v-if="courseStatus==='inAction'" class="text-green font-weight-bold "> {{ courseGroupsNum }} / 30</div>
-          <div v-else-if="courseStatus==='inDev'" class="text-orange font-weight-bold"> 0 / 30</div>
-          <div v-else class="text-red font-weight-bold"> 0 / 30</div>
-        </v-card-subtitle>
+        <p v-if="courseType==='open'" class="text-green">Открытый</p>
+        <p v-else-if="courseType==='closed'" class="text-red">Приватный</p>
       </v-col>
     </v-row>
 
     <v-row>
       <v-spacer/>
-
     </v-row>
 
     <v-card-actions class="mt-5">
@@ -58,9 +54,8 @@ import {mapMutations} from 'vuex'
 export default {
   props: {
     courseName: String,
-    courseDescription: String,
     courseStatus: String,
-    courseGroupsNum: Number
+    courseType: String
   },
   computed: {
     ...mapMutations(["pushCourseInfo"]),
@@ -71,7 +66,7 @@ export default {
       this.pushCourseInfo({
         courseName: this.courseName,
         courseStatus: this.courseStatus,
-        courseGroupsNum: this.courseGroupsNum
+        courseType: this.courseType
       })
     }
   },

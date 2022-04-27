@@ -6,14 +6,14 @@ export default {
         pushCourseInfo(state, data) {
             state.courseInfo.courseName = data.courseName;
             state.courseInfo.courseStatus = data.courseStatus;
-            state.courseInfo.courseGroupsNum = data.courseGroupsNum;
+            state.courseInfo.courseType = data.courseType;
         }
     },
     state: {
         courseInfo: {
             courseName: "",
             courseStatus: "",
-            courseGroupsNum: 0
+            courseType: ""
         }
     },
     getters: {
