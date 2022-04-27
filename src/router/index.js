@@ -3,9 +3,9 @@ import MainPage from "@/views/MainPageView";
 import CoursePage from "@/views/AllCoursesView";
 import SettingsPage from "@/views/SettingsPageView";
 import CourseView from "@/views/CourseView";
-import AddHomework from "@/views/AddHomeworkView";
 import CourseEditorView from "@/views/CourseEditorView";
 import CreateCourseView from "@/views/CreateCourseView";
+import HomeworkView from "@/views/HomeworkView";
 
 const routes = [
   {
@@ -25,8 +25,8 @@ const routes = [
     component: CourseView
   },
   {
-    path: '/CourseView/AddHomework',
-    component: AddHomework
+    path: '/CourseView/HomeworkView',
+    component: HomeworkView
   },
   {
     path: '/CourseView/CourseEditorView',

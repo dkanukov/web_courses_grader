@@ -37,20 +37,19 @@
           >
 
           </v-file-input>
-        </v-col>
 
-        <v-spacer/>
-
-        <v-col class="mt-16 mr-16" cols="5">
-          <h2 class="text_area">Текст задания</h2>
-          <v-textarea class="mt-15"
-            v-model="newHomeWork.homeWorkText"
+          <v-textarea class="mt-15 ml-10"
+                      label="Дополнительный текст домашнего задания"
+                      v-model="newHomeWork.homeWorkText"
           />
-          <v-row class="mt-2" justify="space-around">
+          <v-row justify="space-around">
             <v-btn color="primary">Опубликовать</v-btn>
             <v-btn color="error">Отменить</v-btn>
           </v-row>
+
         </v-col>
+
+
 
 
       </v-row>

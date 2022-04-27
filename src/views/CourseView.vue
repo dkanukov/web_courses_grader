@@ -2,28 +2,21 @@
   <div>
     <HeaderComp/>
     <div>
-      <v-row class="mt-5" justify="center">
-        <h2>{{ getCourseInfo.courseName }}</h2>
-      </v-row>
+      <v-container>
+        <v-row class="mt-15" justify="start">
+          <h2>{{ getCourseInfo.courseName }}</h2>
+        </v-row>
+      </v-container>
       <v-row class="mt-16">
         <v-spacer/>
         <v-col cols="2">
-          <v-row class="mt-5">
+          <v-row>
             <v-btn
                 text
                 color="primary"
                 x-large
                 block=true
-                @click="$router.push('/CourseView/AddHomework')"
-            >
-              Добавить задание</v-btn>
-          </v-row>
-          <v-row class="mt-15">
-            <v-btn
-                text
-                color="primary"
-                x-large
-                block=true
+                @click="$router.push('/CourseView/HomeworkView')"
             >
               Просмотр заданий</v-btn>
           </v-row>
@@ -44,7 +37,7 @@
                 x-large
                 block=true
             >
-              Просмотр наборов</v-btn>
+              Просмотр набора</v-btn>
           </v-row>
           <v-row class="mt-15">
             <v-btn
