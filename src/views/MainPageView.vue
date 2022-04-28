@@ -13,7 +13,11 @@
               cols = "6"
               :key="element"
           >
-            <course-card :course-name="element.name" :course-description="element.description"/>
+            <course-card
+                :course-name="element.name"
+                :course-status="element.status"
+                :courseType="element.type"
+            />
           </v-col>
         </v-row>
       </v-col>
@@ -42,8 +46,12 @@ export default {
   },
   data () {
     return {
-      coursesMainPage: [{name: "Test1", description: "description1"}, {name: "Test2", description: "description2"},
-        {name: "Test3", description: "description3"}, {name: "Test4", description: "description4"}]
+      coursesMainPage: [
+        {index: 1, name: "Test1", status: "inAction", type: "open"},
+        {index: 2, name: "Test2", status: "closed", type: "open"},
+        {index: 3, name: "Test3", status: "inAction", type: "closed"},
+        {index: 4, name: "Test4", status: "inDev", type: "closed"}
+      ]
     }
   }
 }

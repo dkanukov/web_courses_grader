@@ -9,17 +9,15 @@
           <v-col>
             <v-text-field
                 label="Введите имя"
-                v-model="newCourse.name"
-                :rules = "personRules"
-                hide-details="auto"
+                v-model="newCourse.personName"
+                :rules = "checkEmptyRules"
             />
           </v-col>
           <v-col>
             <v-text-field
                 label="Введите фамилию"
-                v-model="newCourse.surname"
-                :rules = "personRules"
-                hide-details="auto"
+                v-model="newCourse.personSurname"
+                :rules = "checkEmptyRules"
             />
           </v-col>
           <v-col>
@@ -27,9 +25,24 @@
                 label="Введите почту"
                 v-model="newCourse.mail"
                 :rules = "emailRules"
-                hide-details="auto"
             />
           </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <v-file-input
+                label="Обложка курса"
+            />
+          </v-col>
+          <v-col>
+            <v-text-field
+                label="Название курса"
+                v-model="newCourse.courseName"
+                :rules="checkEmptyRules"
+            />
+          </v-col>
+          <v-col></v-col>
         </v-row>
 
         <v-row justify="center" class="mt-10">
@@ -69,7 +82,7 @@ export default {
     HeaderComp
   },
   data: () => ({
-    personRules: [
+    checkEmptyRules: [
       value => !!value || 'Обязательное поле',
     ],
     emailRules: [
@@ -77,9 +90,10 @@ export default {
       v => /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'E-mail must be valid',
     ],
     newCourse: {
-      name: "",
-      surname: "",
-      mail: ""
+      personName: "",
+      personSurname: "",
+      mail: "",
+      courseName: ""
     }
   }),
   methods: {

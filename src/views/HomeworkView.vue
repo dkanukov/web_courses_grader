@@ -4,19 +4,11 @@
     <v-form>
       <v-row>
         <v-col class="ml-15 mt-16" cols="5">
-          <v-switch
-              class="ml-10"
-              color="info"
-              label="Опубликовать сразу"
-              v-model="newHomeWork.publicate"
-          >
-          </v-switch>
 
           <v-text-field
               class="ml-10"
               label="Название домашнего задания"
               v-model="newHomeWork.homeworkName"
-              hide-details="auto"
               :rules="inputHomeworkRules"
           >
           </v-text-field>
@@ -24,7 +16,6 @@
           <v-file-input
               class="mt-15"
               label="Тесты для проверки"
-              hide-details="auto"
 
           >
 
@@ -33,12 +24,11 @@
           <v-file-input
               class="mt-5"
               label="Дополнительные файлы задания"
-              hide-details="auto"
           >
 
           </v-file-input>
 
-          <v-textarea class="mt-15 ml-10"
+          <v-textarea class="mt-5 ml-10"
                       label="Дополнительный текст домашнего задания"
                       v-model="newHomeWork.homeWorkText"
           />
@@ -68,7 +58,6 @@ export default {
   data() {
     return {
       newHomeWork: {
-        publicate: true,
         homeworkName: "",
         homeWorkText: ""
       },
