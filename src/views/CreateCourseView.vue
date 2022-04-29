@@ -74,6 +74,14 @@
 <script>
 import HeaderComp from "@/components/HeaderBackRowComp";
 import FooterComp from "@/components/FooterComp";
+function createJson(data) {
+  let link = document.createElement("a");
+  let file = new Blob([data], {type: "text/plain"});
+  link.href = URL.createObjectURL(file);
+  link.download = "test.json";
+  link.click();
+  console.log(file)
+}
 
 export default {
   name: "CreateCourseView",
@@ -87,21 +95,27 @@ export default {
     ],
     emailRules: [
       v => !!v || 'Обязательное поле',
-      v => /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'E-mail must be valid',
+      v => /.+@.+/.test(v) || 'E-mail must be valid',
     ],
     newCourse: {
-      personName: "",
-      personSurname: "",
-      mail: "",
-      courseName: ""
-    }
+      personName: "Имя",
+      personSurname: "Фамилия",
+      mail: "kanukov.denis@gmail.com",
+      courseName: "Название курса"
+    },
   }),
   methods: {
     submitForm () {
-      this.$refs.form.validate();
+      if (this.$refs.form.validate()) {
+        createJson(JSON.stringify(this.newCourse));
+      }
     },
     resetForm () {
-      this.$refs.form.reset();
+      this.$refs.form.resetValidation();
+      this.newCourse.courseName = "";
+      this.newCourse.personName = "";
+      this.newCourse.personSurname = "";
+      this.newCourse.mail = "";
     }
   },
 }
