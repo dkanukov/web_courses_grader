@@ -58,7 +58,6 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCardComp";
-import axios from "axios";
 export default {
   name: "CoursePage",
   components: {
@@ -131,14 +130,6 @@ export default {
       immediate: true
     },
   },
-  mounted() {
-    axios
-      .get('')
-      .then(response => (this.testAxios = response))
-      .catch(error => (console.log(error)))
-
-    console.log(this.testAxios)
-  }
 }
 </script>
 
