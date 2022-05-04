@@ -1,21 +1,14 @@
 version: '3'
 services:
-    grader-nginx:
-        build:
-            context: ./grader/docker/development
-            dockerfile: nginx.docker
-        volumes:
-            - ./grader:/app
-        depends_on:
-            - grader-php-fpm
-        ports:
-            - "8080:80"
     grader-php-fpm:
+        container_name: grader-php-fpm
         build:
             context: ./grader/docker/development
             dockerfile: php-fpm.docker
         volumes:
             - ./grader:/app
+        ports:
+            - "8080:80"
     grader-php-cli:
         build:
             context: ./grader/docker/development
