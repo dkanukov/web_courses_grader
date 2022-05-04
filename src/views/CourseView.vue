@@ -41,16 +41,6 @@
                 block=true
                 @click="$router.push('/CourseView/CourseEditorView')"
             >
-              Просмотр заданий</v-btn>
-          </v-row>
-          <v-row class="mt-15">
-            <v-btn
-                text
-                color="primary"
-                x-large
-                block=true
-                @click="$router.push('/CourseView/CourseEditorView')"
-            >
               Редактировать курс</v-btn>
           </v-row>
           <v-row class="mt-15">
