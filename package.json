@@ -12,6 +12,7 @@
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
     "lodash": "^4.17.21",
+    "msw": "^0.39.2",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
@@ -55,5 +56,8 @@
     "not ie 11"
   ],
   "_id": "grader_for_web_courses@0.1.0",
-  "readme": "ERROR: No README data found!"
+  "readme": "ERROR: No README data found!",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
