@@ -37,7 +37,7 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCardComp";
-import {getCoursesMainPage} from "@/services/fetchers"
+import {getCoursesMainPage} from "@/services/fetchers";
 
 export default {
   components: {
