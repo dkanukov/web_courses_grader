@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>{{message}}</p>
     <HeaderComp/>
     <v-row class="mt-5 ml-5">
       <v-col
@@ -38,7 +37,7 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCardComp";
-import {fetchMessage} from "@/services/fetchers"
+import {getCoursesMainPage} from "@/services/fetchers"
 
 export default {
   components: {
@@ -48,21 +47,15 @@ export default {
   },
   data () {
     return {
-      coursesMainPage: [
-        {index: 1, name: "Test1", status: "inAction", type: "open"},
-        {index: 2, name: "Test2", status: "closed", type: "open"},
-        {index: 3, name: "Test3", status: "inAction", type: "closed"},
-        {index: 4, name: "Test4", status: "inDev", type: "closed"}
-      ],
-      message: ""
+      coursesMainPage: [],
     }
   },
   async created() {
     try {
-      this.message = await fetchMessage();
+      this.coursesMainPage = await getCoursesMainPage();
     }
     catch (e) {
-      this.message = "server error"
+      console.log("server error");
     }
   }
 }
