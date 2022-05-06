@@ -58,6 +58,7 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCardComp";
+import {getAllCourses} from "@/services/fetchers";
 
 export default {
   name: "CoursePage",
@@ -66,26 +67,16 @@ export default {
     FooterComp,
     CourseCard
   },
+  created: async function (){
+    try {
+      this.coursesPage = await getAllCourses();
+    } catch (e) {
+      console.log("Error on all courses page" + e);
+    }
+  },
   data () {
     return {
-      coursesPage: [
-        {index: 1, name: "Test1", status: "inAction", type: "open"},
-        {index: 2, name: "Test2", status: "closed", type: "open"},
-        {index: 3, name: "Test3", status: "inAction", type: "closed"},
-        {index: 4, name: "Test4", status: "inDev", type: "closed"},
-        {index: 5, name: "Test5", status: "inAction", type: "open"},
-        {index: 6, name: "Test6", status: "closed", type: "open"},
-        {index: 7, name: "Test7", status: "inAction", type: "closed"},
-        {index: 8, name: "Test8", status: "inDev", type: "closed"},
-        {index: 9, name: "Test9", status: "inAction", type: "open"},
-        {index: 10, name: "Test10", status: "closed", type: "open"},
-        {index: 11, name: "Test11", status: "inAction", type: "closed"},
-        {index: 12, name: "Test12", status: "inDev", type: "closed"},
-        {index: 9, name: "Test9", status: "inAction", type: "open"},
-        {index: 10, name: "Test10", status: "closed", type: "open"},
-        {index: 11, name: "Test11", status: "inAction", type: "closed"},
-        {index: 12, name: "Test12", status: "inDev", type: "closed"},
-      ],
+      coursesPage: [],
       pageStatus: {
         inputSearch: "",
         categories: [],

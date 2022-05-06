@@ -50,12 +50,11 @@ export default {
       coursesMainPage: [],
     }
   },
-  async created() {
+  created: async function () {
     try {
       this.coursesMainPage = await getCoursesMainPage();
-    }
-    catch (e) {
-      console.log("server error");
+    } catch (e) {
+      console.log("Error on main page" + e);
     }
   }
 }
