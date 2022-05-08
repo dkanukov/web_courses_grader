@@ -19,3 +19,12 @@ cli:
 
 composer-install:
 	docker-compose run --rm grader-php-cli composer install
+
+controller:
+	docker-compose run --rm grader-php-cli symfony console make:controller $(name)
+
+entity:
+	docker-compose run --rm grader-php-cli symfony console make:entity $(name)
+
+migration:
+	docker-compose run --rm grader-php-cli symfony console make:migration
