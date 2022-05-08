@@ -5,6 +5,26 @@ RUN apt-get update && apt-get install -y libzip-dev && apt-get install -y zlib1g
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer --quiet
 
+RUN apt-get install -y nano
+
+RUN apt-get install -y libpq-dev \
+    && docker-php-ext-configure pgsql \
+    && docker-php-ext-install pgsql
+
+RUN apt-get install -y libicu-dev \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl
+
+RUN docker-php-ext-configure opcache \
+    && docker-php-ext-install opcache
+
+RUN rm /usr/local/etc/php/php.ini-development && rm /usr/local/etc/php/php.ini-production
+
+COPY ./configs/php.ini /usr/local/etc/php/php.ini
+
+#RUN apt-get update && apt-get install -y php8.1-curl php8.1-memcached php8.1-mysql php8.1-pgsql php8.1-gd \
+#    php8.1-imagick php8.1-intl php8.1-mcrypt php8.1-xml php8.1-zip php8.1-mbstring
+
 RUN echo 'deb [trusted=yes] https://repo.symfony.com/apt/ /' | tee /etc/apt/sources.list.d/symfony-cli.list \
     && apt-get update && apt-get install -y symfony-cli
 

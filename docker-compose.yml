@@ -9,6 +9,7 @@ services:
       - ./grader:/app
     ports:
       - "8080:80"
+
   grader-php-cli:
     container_name: grader-php-cli
     build:
