@@ -1,20 +1,30 @@
 version: '3'
 services:
-    grader-php-fpm:
-        container_name: grader-php-fpm
-        build:
-            context: ./grader/docker/development
-            dockerfile: php-fpm.docker
-        volumes:
-            - ./grader:/app
-        ports:
-            - "8080:80"
-    grader-php-cli:
-        build:
-            context: ./grader/docker/development
-            dockerfile: php-cli.docker
-        volumes:
-            - ./grader:/app
-            - composer:/root/.composer/cache
+  grader-php-fpm:
+    container_name: grader-php-fpm
+    build:
+      context: ./grader/docker/development
+      dockerfile: php-fpm.docker
+    volumes:
+      - ./grader:/app
+    ports:
+      - "8080:80"
+  grader-php-cli:
+    container_name: grader-php-cli
+    build:
+      context: ./grader/docker/development
+      dockerfile: php-cli.docker
+    volumes:
+      - ./grader:/app
+      - composer:/root/.composer/cache
+
+  database:
+    container_name: grader-database
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: main
+      POSTGRES_PASSWORD: main
+      POSTGRES_DB: main
+    ports: [ "5432" ]
 volumes:
-    composer:
+  composer:

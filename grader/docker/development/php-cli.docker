@@ -5,4 +5,7 @@ RUN apt-get update && apt-get install -y libzip-dev && apt-get install -y zlib1g
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer --quiet
 
+RUN echo 'deb [trusted=yes] https://repo.symfony.com/apt/ /' | tee /etc/apt/sources.list.d/symfony-cli.list \
+    && apt-get update && apt-get install -y symfony-cli
+
 WORKDIR /app

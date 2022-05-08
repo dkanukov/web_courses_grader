@@ -1,6 +1,6 @@
 up: docker-up
 
-init: docker-down docker-pull docker-build docker-up
+init: docker-down docker-pull docker-build docker-up composer-install
 
 docker-up:
 	docker-compose up -d
