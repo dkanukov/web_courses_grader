@@ -1,6 +1,6 @@
 up: docker-up
 
-init: docker-down docker-pull docker-build docker-up composer-install
+init: docker-down docker-pull docker-build docker-up composer-install migrate
 
 docker-up:
 	docker-compose up -d
@@ -28,3 +28,6 @@ entity:
 
 migration:
 	docker-compose run --rm grader-php-cli symfony console make:migration
+
+migrate:
+	docker-compose run --rm grader-php-cli symfony console doctrine:migrations:migrate -n
