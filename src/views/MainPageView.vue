@@ -37,7 +37,7 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCardComp";
-import {getCoursesMainPage} from "@/services/fetchers";
+import {mapGetters, mapActions} from "vuex"
 
 export default {
   components: {
@@ -50,13 +50,23 @@ export default {
       coursesMainPage: [],
     }
   },
-  created: async function () {
-    try {
-      this.coursesMainPage = await getCoursesMainPage();
-    } catch (e) {
-      console.log("Error on main page" + e);
+  computed: {
+    ...mapGetters(["allCourses"]),
+  },
+  methods: {
+    ...mapActions(["getCourses"]),
+    getCoursesForMainPage() {
+      this.coursesMainPage = this.allCourses.slice(this.allCourses.length - 4);
     }
-  }
+  },
+  watch: {
+    allCourses() {
+      this.getCoursesForMainPage();
+    }
+  },
+  created() {
+    this.getCourses();
+  },
 }
 </script>
 

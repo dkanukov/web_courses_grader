@@ -58,7 +58,7 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCardComp";
-import {getAllCourses} from "@/services/fetchers";
+// import {getAllCourses} from "@/services/fetchers";
 
 export default {
   name: "CoursePage",
@@ -66,13 +66,6 @@ export default {
     HeaderComp,
     FooterComp,
     CourseCard
-  },
-  created: async function (){
-    try {
-      this.coursesPage = await getAllCourses();
-    } catch (e) {
-      console.log("Error on all courses page" + e);
-    }
   },
   data () {
     return {
@@ -86,6 +79,20 @@ export default {
       testAxios: null,
     }
   },
+  // created: async function () {
+  //   try {
+  //     this.coursesPage = await getAllCourses();
+  //   } catch (e) {
+  //     console.log("Error on all courses page" + e);
+  //   }
+  // },
+  // beforeCreate: async function () {
+  //   try {
+  //     this.coursesPage = await getAllCourses();
+  //   } catch (e) {
+  //     console.log("Error on all courses page" + e);
+  //   }
+  // },
   methods: {
     trimCourses(status) {
       if (this.filteredCourses.length >= 4) {

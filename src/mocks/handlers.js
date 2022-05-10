@@ -16,11 +16,6 @@ const allCourses = [
 ];
 
 export default [
-    rest.get('/getCoursesMainPage', (req, res, ctx) => {
-        return res(
-            ctx.json(allCourses.slice(0,4))
-        )
-    }),
     rest.get('/getAllCourses', (req, res, ctx) => {
         return res(
             ctx.json(allCourses)
