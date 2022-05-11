@@ -1,7 +1,7 @@
 import {getAllCourses} from "@/services/fetchers";
 export default {
     actions:{
-        async getCourses(ctx) {
+        async fetchCourses(ctx) {
             const res = await getAllCourses();
             ctx.commit("updateCourses", res);
         }

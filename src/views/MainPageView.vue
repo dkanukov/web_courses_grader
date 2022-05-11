@@ -22,8 +22,6 @@
         </v-row>
       </v-col>
 
-      <v-divider vertical=""></v-divider>
-
       <v-col
           cols = "6"
       >
@@ -54,19 +52,17 @@ export default {
     ...mapGetters(["allCourses"]),
   },
   methods: {
-    ...mapActions(["getCourses"]),
-    getCoursesForMainPage() {
-      this.coursesMainPage = this.allCourses.slice(this.allCourses.length - 4);
-    }
+    ...mapActions(["fetchCourses"]),
   },
   watch: {
-    allCourses() {
-      this.getCoursesForMainPage();
+
+  },
+  async mounted() {
+    if (!this.coursesMainPage.length) {
+      await this.fetchCourses();
+      this.coursesMainPage = this.allCourses.slice(this.allCourses.length - 4);
     }
-  },
-  created() {
-    this.getCourses();
-  },
+  }
 }
 </script>
 

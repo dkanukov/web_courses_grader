@@ -6,8 +6,8 @@
       <v-spacer/>
 
       <v-col
-      cols="5"
-      align-self="center"
+        cols="5"
+        align-self="center"
       >
         <v-row >
           <v-checkbox v-model="pageStatus.categories" id="inDev" value="inDev" color="info" label="В разработке"></v-checkbox>
@@ -17,7 +17,10 @@
       </v-col>
 
       <v-col>
-        <v-text-field v-model.trim="pageStatus.inputSearch" label="Введите название курса"/>
+        <v-text-field
+            v-model.trim="pageStatus.inputSearch"
+            label="Введите название курса"
+        />
       </v-col>
     </v-row>
     <v-row
@@ -25,9 +28,9 @@
         v-if="filteredCourses.length !== 0"
     >
       <v-col
-      v-for="element in displayCourses"
-      cols="3"
-      :key="element"
+        v-for="element in displayCourses"
+        cols="3"
+        :key="element"
       >
         <CourseCard
             :course-name="element.name"
@@ -37,12 +40,16 @@
       </v-col>
     </v-row>
     <v-row
-    justify="center"
-    v-else
+      justify="center"
+      v-else
     >
       <h2 class="text-red font-weight-bold">Курс не найден, проверьте название</h2>
     </v-row>
-    <v-row justify="center" class="mt-5" v-show="paginationLength !== 0">
+    <v-row
+        justify="center"
+        class="mt-5"
+        v-show="paginationLength !== 0"
+    >
       <v-pagination
         :length="paginationLength"
         v-model="pageStatus.page"
@@ -58,7 +65,7 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCardComp";
-// import {getAllCourses} from "@/services/fetchers";
+import {mapGetters} from "vuex";
 
 export default {
   name: "CoursePage",
@@ -76,23 +83,8 @@ export default {
         page: 1,
       },
       displayCourses: [],
-      testAxios: null,
     }
   },
-  // created: async function () {
-  //   try {
-  //     this.coursesPage = await getAllCourses();
-  //   } catch (e) {
-  //     console.log("Error on all courses page" + e);
-  //   }
-  // },
-  // beforeCreate: async function () {
-  //   try {
-  //     this.coursesPage = await getAllCourses();
-  //   } catch (e) {
-  //     console.log("Error on all courses page" + e);
-  //   }
-  // },
   methods: {
     trimCourses(status) {
       if (this.filteredCourses.length >= 4) {
@@ -104,9 +96,10 @@ export default {
       } else {
         this.displayCourses = this.filteredCourses
       }
-    }
+    },
   },
   computed: {
+    ...mapGetters(["allCourses"]),
     filteredCourses: function () {
       let i = this;
       let filters = this.pageStatus.categories;
@@ -117,7 +110,7 @@ export default {
           })
     },
     paginationLength: function () {
-      return this.filteredCourses.length / 4;
+      return Math.ceil(this.filteredCourses.length / 4);
     }
   },
   watch: {
