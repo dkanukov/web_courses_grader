@@ -65,7 +65,7 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCardComp";
-import {mapGetters} from "vuex";
+import {mapGetters, mapActions} from "vuex";
 
 export default {
   name: "CoursePage",
@@ -86,6 +86,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["fetchCourses"]),
     trimCourses(status) {
       if (this.filteredCourses.length >= 4) {
         if (status.page === 1) {
@@ -97,6 +98,12 @@ export default {
         this.displayCourses = this.filteredCourses
       }
     },
+    async getCourses() {
+      await this.fetchCourses()
+          .then(() => {
+            this.coursesPage = this.allCourses;
+          })
+    }
   },
   computed: {
     ...mapGetters(["allCourses"]),
@@ -111,7 +118,7 @@ export default {
     },
     paginationLength: function () {
       return Math.ceil(this.filteredCourses.length / 4);
-    }
+    },
   },
   watch: {
     pageStatus: {
@@ -121,6 +128,13 @@ export default {
       deep: true,
       immediate: true
     },
+  },
+  mounted() {
+    if (this.allCourses.length === undefined) {
+       this.getCourses();
+    } else {
+      this.coursesPage = this.allCourses;
+    }
   },
 }
 </script>
