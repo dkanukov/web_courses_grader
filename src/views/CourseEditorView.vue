@@ -9,7 +9,6 @@
           </v-row>
           <v-text-field
               v-model="editedCourse.courseDescr"
-              hide-details="auto"
           />
         </v-col>
 
@@ -21,7 +20,6 @@
             required
             :rules="emailRules"
             v-model="editedCourse.newEmail"
-            hide-details="auto"
           />
         </v-col>
       </v-row>
@@ -78,6 +76,8 @@
 
 <script>
 import HeaderComp from "@/components/HeaderBackRowComp";
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "CourseEditorView",
   components: {
@@ -86,27 +86,46 @@ export default {
   data() {
     return {
       editedCourse: {
-        courseDescr: "Описание которое потом получим с сервера",
-        newEmail: "testmail@gmail.com",
-        courseType: "Открытый",
-        courseStatus: "Закрыт",
+        courseDescr: "",
+        newEmail: "",
+        courseType: "",
+        courseStatus: "",
       },
       courseType: ["Открытый", "Закрытый"],
       courseStatus: ["Открыт", "В разработке", "Закрыт"],
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'E-mail must be valid',
+        v => !!v || 'Обязательное поле',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
       ]
     }
   },
   methods: {
+    ...mapActions(["fetchCourses"]),
     submitForm () {
       this.$refs.form.validate();
     },
     resetForm () {
       this.$refs.form.reset();
+    },
+    async getCourses() {
+      await this.fetchCourses()
+          .then(() => {
+            console.log("courses fetched successfully");
+          })
     }
   },
+  computed: {
+    ...mapGetters(["allCourses"])
+  },
+  mounted() {
+    if (this.allCourses.length === undefined) {
+      console.log("allCourses is undefined");
+      this.getCourses();
+    }
+    this.editedCourse.courseDescr = this.allCourses.description;
+    this.editedCourse.courseStatus = this.allCourses.status;
+    this.editedCourse.courseType = this.allCourses.type;
+  }
 }
 </script>
 
