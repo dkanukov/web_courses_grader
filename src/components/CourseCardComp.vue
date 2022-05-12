@@ -55,7 +55,8 @@ export default {
   props: {
     courseName: String,
     courseStatus: String,
-    courseType: String
+    courseType: String,
+    courseDescr: String
   },
   computed: {
     ...mapMutations(["pushCourseInfo"]),
@@ -66,7 +67,8 @@ export default {
       this.pushCourseInfo({
         courseName: this.courseName,
         courseStatus: this.courseStatus,
-        courseType: this.courseType
+        courseType: this.courseType,
+        courseDescr: this.courseDescr
       })
     }
   },

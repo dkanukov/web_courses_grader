@@ -63,7 +63,14 @@
           </v-row>
         </v-col>
 
-        <v-col cols="9">
+        <v-col class="pt-0 pl-16" cols="3">
+          <div>
+            <h3>Описание курса</h3>
+            {{getCourseInfo.courseDescr}}
+          </div>
+        </v-col>
+
+        <v-col cols="6">
 
         </v-col>
       </v-row>
@@ -89,9 +96,7 @@ export default {
   },
   computed: {
     ...mapGetters(["getCourseInfo"]),
-
   },
-
 }
 </script>
 

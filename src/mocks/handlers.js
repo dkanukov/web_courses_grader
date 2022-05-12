@@ -1,18 +1,18 @@
 import { rest } from 'msw';
 
 const allCourses = [
-    {index: 1, name: "Test1", status: "inAction", type: "open"},
-    {index: 2, name: "Test2", status: "closed", type: "open"},
-    {index: 3, name: "Test3", status: "inAction", type: "closed"},
-    {index: 4, name: "Test4", status: "inDev", type: "closed"},
-    {index: 5, name: "Test5", status: "inAction", type: "open"},
-    {index: 6, name: "Test6", status: "closed", type: "open"},
-    {index: 7, name: "Test7", status: "inAction", type: "closed"},
-    {index: 8, name: "Test8", status: "inDev", type: "closed"},
-    {index: 9, name: "Test9", status: "inAction", type: "open"},
-    {index: 10, name: "Test10", status: "closed", type: "open"},
-    {index: 11, name: "Test11", status: "inAction", type: "closed"},
-    {index: 12, name: "Test12", status: "inDev", type: "closed"},
+    {id: 1, name: "Test1", status: "inAction", type: "open", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 2, name: "Test2", status: "closed", type: "open", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 3, name: "Test3", status: "inAction", type: "closed", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 4, name: "Test4", status: "inDev", type: "closed", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 5, name: "Test5", status: "inAction", type: "open", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 6, name: "Test6", status: "closed", type: "open", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 7, name: "Test7", status: "inAction", type: "closed", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 8, name: "Test8", status: "inDev", type: "closed", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 9, name: "Test9", status: "inAction", type: "open", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 10, name: "Test10", status: "closed", type: "open", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 11, name: "Test11", status: "inAction", type: "closed", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
+    {id: 12, name: "Test12", status: "inDev", type: "closed", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
 ];
 
 export default [

@@ -35,7 +35,8 @@
         <CourseCard
             :course-name="element.name"
             :course-status="element.status"
-            :courseType="element.type"
+            :course-type="element.type"
+            :course-descr="element.description"
         />
       </v-col>
     </v-row>
