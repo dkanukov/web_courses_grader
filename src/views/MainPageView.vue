@@ -18,6 +18,7 @@
                 :course-status="element.status"
                 :course-type="element.type"
                 :course-descr="element.description"
+                :course-id="element.id"
             />
           </v-col>
         </v-row>
@@ -62,7 +63,6 @@ export default {
     if (!this.coursesMainPage.length) {
       await this.fetchCourses();
       this.coursesMainPage = this.allCourses.slice(this.allCourses.length - 4);
-      console.log(this.coursesMainPage[0].description);
     }
   }
 }

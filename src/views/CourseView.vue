@@ -82,7 +82,8 @@
 <script>
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex';
+import {getCourseByCourseId} from '@/services/fetchers';
 export default {
   name: "CourseView",
   components: {
@@ -91,12 +92,26 @@ export default {
   },
   data() {
     return {
+    }
+  },
+  methods: {
+    ...mapActions(["fetchCourses"]),
+    async getCourse(id) {
+      //need to write new request
 
+      const res = await getCourseByCourseId(id);
+      console.log(res);
     }
   },
   computed: {
-    ...mapGetters(["getCourseInfo"]),
+    ...mapGetters(["getCourseInfo", "allCourses"]),
   },
+  mounted() {
+    const id = window.localStorage.getItem("recentlyVisitedCourse");
+    if (this.allCourses.length === undefined) {
+      this.getCourse(id);
+    }
+  }
 }
 </script>
 

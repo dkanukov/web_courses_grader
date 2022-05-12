@@ -20,5 +20,12 @@ export default [
         return res(
             ctx.json(allCourses)
         )
+    }),
+    rest.get('/getCourseByCourseId', (req, res, ctx) => {
+        const courseId = req.url.searchParams.get('id');
+        const result = allCourses.find(element => element.id === parseInt(courseId));
+        return res (
+            ctx.json(result)
+        )
     })
 ]

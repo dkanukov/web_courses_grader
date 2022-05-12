@@ -53,6 +53,7 @@
 import {mapMutations} from 'vuex'
 export default {
   props: {
+    courseId: Number,
     courseName: String,
     courseStatus: String,
     courseType: String,
@@ -63,6 +64,8 @@ export default {
   },
   methods: {
     submit() {
+      window.localStorage.setItem("recentlyVisitedCourse", JSON.stringify(this.courseId));
+      console.log(this.courseId);
       this.$router.push('/CourseView');
       this.pushCourseInfo({
         courseName: this.courseName,
