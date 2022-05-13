@@ -2,13 +2,13 @@
   <div>
     <HeaderComp title="Редактирование курса" link="/CourseView"/>
     <v-form ref="form" style="margin-top: 100px;" lazy-validation>
-      <v-row align="center" justify="space-around">
+      <v-row align="top" justify="space-around">
         <v-col cols="4">
           <v-row justify="center" class="mb-5">
             <h2>Описание курса</h2>
           </v-row>
-          <v-text-field
-              v-model="editedCourse.courseDescr"
+          <v-textarea
+              v-model="course.courseDescr"
           />
         </v-col>
 
@@ -19,7 +19,7 @@
           <v-text-field
             required
             :rules="emailRules"
-            v-model="editedCourse.newEmail"
+            v-model="course.courseEmail"
           />
         </v-col>
       </v-row>
@@ -32,7 +32,7 @@
           <v-select
               class="text-no-wrap"
               :items="courseStatus"
-              v-model="editedCourse.courseStatus"
+              v-model="course.courseStatus"
           />
         </v-col>
         <v-col cols="3">
@@ -42,7 +42,7 @@
           <v-select
               class="pl-15"
             :items="courseType"
-            v-model="editedCourse.courseType"
+            v-model="course.courseType"
           />
         </v-col>
       </v-row>
@@ -76,8 +76,7 @@
 
 <script>
 import HeaderComp from "@/components/HeaderBackRowComp";
-import {mapActions, mapGetters} from "vuex";
-
+import {getCourseByCourseId, getUserById} from '@/services/fetchers';
 export default {
   name: "CourseEditorView",
   components: {
@@ -85,9 +84,9 @@ export default {
   },
   data() {
     return {
-      editedCourse: {
+      course: {
         courseDescr: "",
-        newEmail: "",
+        courseEmail: "",
         courseType: "",
         courseStatus: "",
       },
@@ -100,31 +99,31 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["fetchCourses"]),
     submitForm () {
       this.$refs.form.validate();
+      //add watcher which will compare info, then make post to server
     },
     resetForm () {
       this.$refs.form.reset();
     },
-    async getCourses() {
-      await this.fetchCourses()
-          .then(() => {
-            console.log("courses fetched successfully");
-          })
+    async getInfo () {
+      const course = await getCourseByCourseId(window.localStorage.getItem("recentlyVisitedCourse"));
+      const user = await getUserById(window.localStorage.getItem("userId"));
+      this.course.courseDescr = course.description;
+      this.course.courseEmail = user.email;
+      this.course.courseStatus =
+          (course.status === 'inAction') ? 'Открыт' :
+          (course.status === 'inDev') ? 'В разработке' :
+          (course.status === 'closed') ? 'Закрыт' :
+          "Error";
+      this.course.courseType =
+          (course.type === 'open') ? 'Открытый' :
+          (course.type === 'closed') ? 'Закрытый' :
+          "Error";
     }
-  },
-  computed: {
-    ...mapGetters(["allCourses"])
   },
   mounted() {
-    if (this.allCourses.length === undefined) {
-      console.log("allCourses is undefined");
-      this.getCourses();
-    }
-    this.editedCourse.courseDescr = this.allCourses.description;
-    this.editedCourse.courseStatus = this.allCourses.status;
-    this.editedCourse.courseType = this.allCourses.type;
+    this.getInfo();
   }
 }
 </script>

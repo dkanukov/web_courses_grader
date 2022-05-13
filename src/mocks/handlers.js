@@ -15,6 +15,10 @@ const allCourses = [
     {id: 12, name: "Test12", status: "inDev", type: "closed", description: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно"},
 ];
 
+const users = [
+    {id: 1, name: "name1", surname: "surname1", email: "test@example.com", coursesId: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], password: "password1"},
+]
+
 export default [
     rest.get('/getAllCourses', (req, res, ctx) => {
         return res(
@@ -24,6 +28,13 @@ export default [
     rest.get('/getCourseByCourseId', (req, res, ctx) => {
         const courseId = req.url.searchParams.get('id');
         const result = allCourses.find(element => element.id === parseInt(courseId));
+        return res (
+            ctx.json(result)
+        )
+    }),
+    rest.get('/getUserById', (req, res, ctx) => {
+        const userId = req.url.searchParams.get('id');
+        const result = users.find(element => element.id === parseInt(userId));
         return res (
             ctx.json(result)
         )

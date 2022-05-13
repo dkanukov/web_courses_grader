@@ -9,3 +9,8 @@ export const getCourseByCourseId = async function(id) {
     const response = await axios.get('/getCourseByCourseId?id=' + id);
     return response.data;
 }
+
+export const getUserById = async function(id) {
+    const response = await axios.get('/getUserById?id=' + id);
+    return response.data;
+}

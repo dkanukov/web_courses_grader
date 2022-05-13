@@ -37,6 +37,7 @@
             :course-status="element.status"
             :course-type="element.type"
             :course-descr="element.description"
+            :course-id="element.id"
         />
       </v-col>
     </v-row>

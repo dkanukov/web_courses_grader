@@ -97,21 +97,32 @@ export default {
   methods: {
     ...mapActions(["fetchCourses"]),
     async getCourse(id) {
-      //need to write new request
-
       const res = await getCourseByCourseId(id);
-      console.log(res);
+      this.getCourseInfo.courseDescr = res.description;
+      this.getCourseInfo.courseType = res.type;
+      this.getCourseInfo.courseStatus = res.status;
+      this.getCourseInfo.courseName = res.name;
     }
   },
   computed: {
     ...mapGetters(["getCourseInfo", "allCourses"]),
   },
   mounted() {
+    console.log("mounted");
     const id = window.localStorage.getItem("recentlyVisitedCourse");
     if (this.allCourses.length === undefined) {
       this.getCourse(id);
+    } else if (this.getCourseInfo.length === undefined){
+      const currentCourse = this.allCourses.find(element => element.id === parseInt(id));
+      this.getCourseInfo.courseDescr = currentCourse.description;
+      this.getCourseInfo.courseType = currentCourse.type;
+      this.getCourseInfo.courseStatus = currentCourse.status;
+      this.getCourseInfo.courseName = currentCourse.name;
+      console.log(currentCourse);
+      console.log(this.getCourseInfo.length)
     }
-  }
+  },
+
 }
 </script>
 

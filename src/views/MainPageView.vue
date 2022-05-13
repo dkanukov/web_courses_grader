@@ -60,6 +60,8 @@ export default {
 
   },
   async mounted() {
+    //Delete when get database of users and make a login page
+    window.localStorage.setItem("userId", "1");
     if (!this.coursesMainPage.length) {
       await this.fetchCourses();
       this.coursesMainPage = this.allCourses.slice(this.allCourses.length - 4);
