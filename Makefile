@@ -31,3 +31,7 @@ migration:
 
 migrate:
 	docker-compose run --rm grader-php-cli symfony console doctrine:migrations:migrate -n
+
+database:
+	docker exec -it grader-database psql -U main
+	main
