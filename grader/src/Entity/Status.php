@@ -26,6 +26,11 @@ class Status
         $this->courses = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->status;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
