@@ -46,6 +46,10 @@ class Course
         $this->homework = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->title;
+    }
 
     public function getId(): ?int
     {

@@ -2,18 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Course;
+use App\Entity\Homeworks;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class CourseCrudController extends AbstractCrudController
+class HomeworksCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Course::class;
+        return Homeworks::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -21,10 +20,8 @@ class CourseCrudController extends AbstractCrudController
         return [
             TextField::new('title'),
             TextEditorField::new('description'),
-            TextField::new('cover'),
-            DateField::new('open_date'),
-            DateField::new('closing_date'),
-            AssociationField::new('status')
+            TextField::new('task_files_path'),
+            AssociationField::new('course')
         ];
     }
 }

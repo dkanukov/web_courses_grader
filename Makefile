@@ -35,3 +35,6 @@ migrate:
 database:
 	docker exec -it grader-database psql -U main
 	main
+
+crud:
+	docker-compose run --rm grader-php-cli symfony console make:admin:crud
