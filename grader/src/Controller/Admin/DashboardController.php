@@ -3,7 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Course;
-use App\Entity\Status;
+use App\Entity\Homeworks;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -42,26 +43,25 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('App');
+            // the name visible to end users
+            ->setTitle('App')
+
+            // set this option if you prefer the page content to span the entire
+            // browser width, instead of the default design which sets a max width
+            ->renderContentMaximized()
+
+            // by default, all backend URLs are generated as absolute URLs. If you
+            // need to generate relative URLs instead, call this method
+            ->generateRelativeUrls()
+            ;
     }
 
     public function configureMenuItems(): iterable
     {
-//        return [
-//            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
-//
-//            MenuItem::section('Course'),
-//            MenuItem::linkToCrud('Categories', 'fa fa-tags', Course::class),
-//            MenuItem::linkToCrud('Blog Posts', 'fa fa-file-text', Homeworks::class),
-//
-//            MenuItem::section('Users'),
-//            MenuItem::linkToCrud('Comments', 'fa fa-comment', Status::class),
-//            MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
-//        ];
-//        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'home');
-        yield MenuItem::linkToCrud('Status', 'fas fa-list', Status::class);
-        yield MenuItem::linkToCrud('Course', 'fas fa-list', Course::class);
+        yield MenuItem::linkToCrud('Courses', 'fas fa-laptop', Course::class);
+        yield MenuItem::linkToCrud('Homeworks', 'fas fa-check-circle', Homeworks::class);
+        yield MenuItem::linkToCrud('Users', 'fas fa-address-book', User::class);
     }
 
     public function configureActions(): Actions
