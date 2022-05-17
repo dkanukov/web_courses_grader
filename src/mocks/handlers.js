@@ -19,7 +19,24 @@ const users = [
     {id: 1, name: "name1", surname: "surname1", email: "test@example.com", coursesId: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], password: "password1"},
 ]
 
+const tasks = [
+    {id: 1, userId: 1, courseId: 1, tasks: [
+            {id: 1, name: "Task1"},
+            {id: 2, name: "Task2"},
+            {id: 3, name: "Task3"},
+            {id: 4, name: "Task4"},
+            {id: 5, name: "Task5"}
+        ]}
+]
+
 export default [
+    rest.get('/getTasksByCourseId', (req, res, ctx) => {
+       const courseId = req.url.searchParams.get('id');
+       const result = tasks.find((element) => element.courseId===parseInt(courseId));
+       return res(
+           ctx.json(result)
+       )
+    }),
     rest.get('/getAllCourses', (req, res, ctx) => {
         return res(
             ctx.json(allCourses)

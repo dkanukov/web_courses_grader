@@ -50,6 +50,7 @@
 
 <script>
 import HeaderComp from "@/components/HeaderBackRowComp";
+import {getTasksByCourseId} from "@/services/fetchers";
 export default {
   name: "AddHomework",
   components: {
@@ -61,6 +62,7 @@ export default {
         homeworkName: "",
         homeWorkText: ""
       },
+      courseTasks: [],
       inputHomeworkRules: [
         value => !!value || 'Введите название',
         value => (value && value.length >= 3) || 'Название должно содержать больше 3 символов',
@@ -68,6 +70,15 @@ export default {
       ]
     }
   },
+  methods: {
+    async getTasks() {
+      this.courseTasks = await getTasksByCourseId(window.localStorage.getItem("recentlyVisitedCourse"));
+      console.log(this.courseTasks.tasks);
+    }
+  },
+  mounted() {
+    this.getTasks();
+  }
 }
 </script>
 

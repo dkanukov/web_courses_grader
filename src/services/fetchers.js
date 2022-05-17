@@ -14,3 +14,8 @@ export const getUserById = async function(id) {
     const response = await axios.get('/getUserById?id=' + id);
     return response.data;
 }
+
+export const getTasksByCourseId = async function(id) {
+    const response = await axios.get('/getTasksByCourseId?id=' + id);
+    return response.data;
+}
