@@ -40,7 +40,7 @@
             <h2>Изменить тип курса</h2>
           </v-row>
           <v-select
-              class="pl-15"
+            class="pl-15"
             :items="courseType"
             v-model="course.courseType"
           />
@@ -95,7 +95,8 @@ export default {
       emailRules: [
         v => !!v || 'Обязательное поле',
         v => /.+@.+/.test(v) || 'E-mail must be valid',
-      ]
+      ],
+      
     }
   },
   methods: {
@@ -124,7 +125,7 @@ export default {
   },
   mounted() {
     this.getInfo();
-  }
+  },
 }
 </script>
 

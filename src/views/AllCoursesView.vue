@@ -136,6 +136,7 @@ export default {
        this.getCourses();
     } else {
       this.coursesPage = this.allCourses;
+
     }
   },
 }

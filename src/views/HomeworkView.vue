@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComp title="Добавление домашнего задания" link="/CourseView"/>
-    <v-form>
+    <v-form ref="form">
       <v-row>
         <v-col class="ml-15 mt-16" cols="5">
 
@@ -27,8 +27,8 @@
                       v-model="newHomeWork.homeWorkText"/>
 
           <v-row justify="space-around">
-            <v-btn color="primary">Опубликовать</v-btn>
-            <v-btn color="error">Отменить</v-btn>
+            <v-btn @click="publicate" color="primary">Опубликовать</v-btn>
+            <v-btn @click="resetForm" color="error">Отменить</v-btn>
           </v-row>
         </v-col>
 
@@ -47,8 +47,10 @@
                 </div>
               </template>
           </draggable>
-            <v-btn block="block">Сохранить изменения</v-btn>
-            <v-btn block="block">Отменить</v-btn>
+            <v-row class="mt-lg-5">
+              <v-btn class="ml-8" color="primary">Сохранить</v-btn>
+              <v-btn @click="resetOrder" class="ml-lg-5" color="error">Отменить</v-btn>
+            </v-row>
         </v-col>
 
       </v-row>
@@ -78,7 +80,6 @@ export default {
       inputHomeworkRules: [
         value => !!value || 'Введите название',
         value => (value && value.length >= 3) || 'Название должно содержать больше 3 символов',
-        value => (value && value.length >= 3) || 'Название должно содержать меньше 10 символов'
       ],
       dragging: false,
     }
@@ -86,6 +87,25 @@ export default {
   methods: {
     async getTasks() {
       this.courseTasks = await getTasksByCourseId(window.localStorage.getItem("recentlyVisitedCourse"));
+    },
+    async publicate() {
+      const res = await this.$refs.form.validate()
+      if (res.valid === true) {
+        console.log(this.courseTasks)
+        this.courseTasks.tasks.push({
+          id: this.courseTasks.tasks.length + 1,
+          name: this.newHomeWork.homeworkName
+        })
+      }
+    },
+    resetOrder() {
+      console.log(this.courseTasks)
+      this.courseTasks.tasks = this.courseTasks.tasks.sort((a, b) => a.id - b.id);
+    },
+    resetForm() {
+      this.$refs.form.resetValidation();
+      this.newHomeWork.homeworkName = "";
+      this.newHomeWork.homeWorkText = ""
     }
   },
   mounted() {
@@ -98,7 +118,7 @@ export default {
 .dragndrop_item {
   max-width: 300px;
   text-align: center;
-  background-color: cornflowerblue;
+  border: 1px solid black;
 }
 
 </style>
