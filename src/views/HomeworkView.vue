@@ -37,8 +37,8 @@
         <v-col cols="5">
           <draggable
               class="mt-16"
-              :list="courseTasks.tasks"
               item-key="element.id"
+              v-model="courseTasks.tasks"
               @start="dragging = true"
               @end="dragging = false">
               <template #item="{element}">
@@ -87,19 +87,27 @@ export default {
   methods: {
     async getTasks() {
       this.courseTasks = await getTasksByCourseId(window.localStorage.getItem("recentlyVisitedCourse"));
+      console.log(this.courseTasks);
     },
     async publicate() {
-      const res = await this.$refs.form.validate()
+      console.log(this.courseTasks.length)
+      const res = await this.$refs.form.validate();
       if (res.valid === true) {
-        console.log(this.courseTasks)
-        this.courseTasks.tasks.push({
-          id: this.courseTasks.tasks.length + 1,
-          name: this.newHomeWork.homeworkName
-        })
+        if (this.courseTasks.tasks.length !== 0) {
+
+          this.courseTasks.tasks.push({
+            id: this.courseTasks.tasks.length + 1,
+            name: this.newHomeWork.homeworkName
+          })
+        } else {
+          this.courseTasks.tasks[0] = {
+            id: 1,
+            name: this.newHomeWork.homeworkName
+          }
+        }
       }
     },
     resetOrder() {
-      console.log(this.courseTasks)
       this.courseTasks.tasks = this.courseTasks.tasks.sort((a, b) => a.id - b.id);
     },
     resetForm() {
