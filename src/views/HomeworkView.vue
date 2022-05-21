@@ -87,18 +87,16 @@ export default {
   methods: {
     async getTasks() {
       this.courseTasks = await getTasksByCourseId(window.localStorage.getItem("recentlyVisitedCourse"));
-      console.log(this.courseTasks);
     },
     async publicate() {
-      console.log(this.courseTasks.length)
       const res = await this.$refs.form.validate();
       if (res.valid === true) {
         if (this.courseTasks.tasks.length !== 0) {
-
           this.courseTasks.tasks.push({
             id: this.courseTasks.tasks.length + 1,
             name: this.newHomeWork.homeworkName
-          })
+          });
+          this.resetForm();
         } else {
           this.courseTasks.tasks[0] = {
             id: 1,

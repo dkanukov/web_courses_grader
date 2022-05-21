@@ -26,7 +26,8 @@ const tasks = [
             {id: 3, name: "Task3"},
             {id: 4, name: "Task4"},
             {id: 5, name: "Task5"}
-        ]}
+        ]},
+    {id: 2, userId: 1, courseId: 9, tasks: []}
 ]
 
 export default [
