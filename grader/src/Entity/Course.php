@@ -1,43 +1,59 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\CourseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
+#[ApiResource(
+    collectionOperations: ['get' => ['normalization_context' => ['groups' => 'course:list']]],
+    itemOperations: ['get' => ['normalization_context' => ['groups' => 'course:item']]],
+    order: ['user_id' => 'DESC', 'status' => 'ASC'],
+    paginationEnabled: false,
+)]
 class Course
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['course:list', 'course:item'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['course:list', 'course:item'])]
     private $title;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['course:list', 'course:item'])]
     private $description;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['course:list', 'course:item'])]
     private $cover;
 
     #[ORM\Column(type: 'date')]
+    #[Groups(['course:list', 'course:item'])]
     private $open_date;
 
     #[ORM\Column(type: 'date')]
+    #[Groups(['course:list', 'course:item'])]
     private $closing_date;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'courses')]
+    #[Groups(['course:list', 'course:item'])]
     private $user_id;
 
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Homeworks::class)]
+    #[Groups(['course:list', 'course:item'])]
     private $homework;
 
     #[ORM\ManyToOne(targetEntity: Status::class, inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['course:list', 'course:item'])]
     private $status;
 
     public function __construct()

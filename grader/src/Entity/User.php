@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,38 +11,54 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[ApiResource(
+    collectionOperations: ['get' => ['normalization_context' => ['groups' => 'user:list']]],
+    itemOperations: ['get' => ['normalization_context' => ['groups' => 'user:item']]],
+    order: ['last_name' => 'DESC', 'login' => 'ASC'],
+    paginationEnabled: false,
+)]
 class User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['user:list', 'user:item'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['user:list', 'user:item'])]
     private $last_name;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['user:list', 'user:item'])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['user:list', 'user:item'])]
     private $patronymic;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups(['user:list', 'user:item'])]
     private $login;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups(['user:list', 'user:item'])]
     private $password;
 
     #[ORM\Column(type: 'date')]
+    #[Groups(['user:list', 'user:item'])]
     private $registration_date;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['user:list', 'user:item'])]
     private $email;
 
     #[ORM\ManyToMany(targetEntity: Course::class, mappedBy: 'user_id')]
+    #[Groups(['user:list', 'user:item'])]
     private $courses;
 
     #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
+    #[Groups(['user:list', 'user:item'])]
     private $role;
 
     public function __construct()
