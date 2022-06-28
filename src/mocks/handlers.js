@@ -21,13 +21,23 @@ const users = [
 
 const tasks = [
     {id: 1, userId: 1, courseId: 1, tasks: [
-            {id: 1, name: "Task1"},
+            {id: 1, name: "Task1", taskInfo: {
+                taskFiles: [],
+                taskText: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати"
+                }},
             {id: 2, name: "Task2"},
             {id: 3, name: "Task3"},
             {id: 4, name: "Task4"},
             {id: 5, name: "Task5"}
         ]},
-    {id: 2, userId: 1, courseId: 9, tasks: []}
+    {id: 2, userId: 1, courseId: 9, tasks: []},
+    {id: 3, userId: 1, courseId: 8, tasks: []},
+    {id: 4, userId: 1, courseId: 7, tasks: []},
+    {id: 5, userId: 1, courseId: 6, tasks: []},
+    {id: 6, userId: 1, courseId: 5, tasks: []},
+    {id: 7, userId: 1, courseId: 4, tasks: []},
+    {id: 8, userId: 1, courseId: 3, tasks: []},
+    {id: 9, userId: 1, courseId: 2, tasks: []}
 ]
 
 export default [

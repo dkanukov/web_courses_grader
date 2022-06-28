@@ -103,6 +103,8 @@ export default {
             name: this.newHomeWork.homeworkName
           }
         }
+        this.newHomeWork.homeWorkText = "";
+        this.newHomeWork.homeworkName = "";
       }
     },
     resetOrder() {
