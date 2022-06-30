@@ -43,7 +43,15 @@
               @end="dragging = false">
               <template #item="{element}">
                 <div class="dragndrop_item mt-10" style="border-radius: 10px">
-                  <h3>{{element.name}}</h3>
+                  <h3>{{element.moduleName}}</h3>
+                  <nested-draggable v-model="element.tasks" item-key="element.taskName" class="list-group" group="people">
+                    <template #item="element">
+                      <div>
+                        <p v-for="el in element" :key="el.id">{{el.taskName}}</p>
+                      </div>
+                    </template>
+
+                  </nested-draggable>
                 </div>
               </template>
           </draggable>
@@ -61,13 +69,16 @@
 
 <script>
 import HeaderComp from "@/components/HeaderBackRowComp";
+import draggable from "vuedraggable";
+import nestedDraggable from "vuedraggable"
 import {getTasksByCourseId} from "@/services/fetchers";
-import draggable from "vuedraggable"
+
 export default {
   name: "AddHomework",
   components: {
     HeaderComp,
-    draggable
+    draggable,
+    nestedDraggable
   },
   data() {
     return {
@@ -76,7 +87,7 @@ export default {
         homeworkName: "",
         homeWorkText: ""
       },
-      courseTasks: [],
+      courseTasks: {},
       inputHomeworkRules: [
         value => !!value || 'Введите название',
         value => (value && value.length >= 3) || 'Название должно содержать больше 3 символов',
@@ -87,6 +98,7 @@ export default {
   methods: {
     async getTasks() {
       this.courseTasks = await getTasksByCourseId(window.localStorage.getItem("recentlyVisitedCourse"));
+      console.log(this.courseTasks);
     },
     async publicate() {
       const res = await this.$refs.form.validate();
@@ -124,6 +136,7 @@ export default {
 
 <style scoped>
 .dragndrop_item {
+  cursor: pointer;
   max-width: 300px;
   text-align: center;
   border: 1px solid black;

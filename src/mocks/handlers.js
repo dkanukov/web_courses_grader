@@ -19,16 +19,28 @@ const users = [
     {id: 1, name: "name1", surname: "surname1", email: "test@example.com", coursesId: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], password: "password1"},
 ]
 
-const tasks = [
+const coursesModulesTasks = [
     {id: 1, userId: 1, courseId: 1, tasks: [
-            {id: 1, name: "Task1", taskInfo: {
-                taskFiles: [],
-                taskText: "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати"
-                }},
-            {id: 2, name: "Task2"},
-            {id: 3, name: "Task3"},
-            {id: 4, name: "Task4"},
-            {id: 5, name: "Task5"}
+            {id: 1, moduleName: "Module1", tasks:[
+                    {taskName: "Task1"},
+                    {taskName: "Task2"},
+                    {taskName: "Task3"},
+                    {taskName: "Task4"},
+                ]},
+            {id: 2, moduleName: "Module2",tasks:[
+                    {taskName: "Task5"},
+                    {taskName: "Task6"},
+                    {taskName: "Task7"},
+                    {taskName: "Task8"},
+                ]},
+            {id: 3, moduleName: "Module3", tasks:[
+                    {taskName: "Task9"},
+                    {taskName: "Task10"},
+                    {taskName: "Task11"},
+                    {taskName: "Task12"},
+                ]},
+            {id: 4, moduleName: "Module4", tasks: []},
+            {id: 5, moduleName: "Module5", tasks: []},
         ]},
     {id: 2, userId: 1, courseId: 9, tasks: []},
     {id: 3, userId: 1, courseId: 8, tasks: []},
@@ -43,7 +55,7 @@ const tasks = [
 export default [
     rest.get('/getTasksByCourseId', (req, res, ctx) => {
        const courseId = req.url.searchParams.get('id');
-       const result = tasks.find((element) => element.courseId===parseInt(courseId));
+       const result = coursesModulesTasks.find((element) => element.courseId===parseInt(courseId));
        return res(
            ctx.json(result)
        )
