@@ -4,13 +4,14 @@
     <div class="container">
       <v-row>
         <v-col cols="3">
-          <v-form ref="form" class="pl-2">
-
+          <v-row class="justify-center ma-5">
+            <h3>Добавление модуля</h3>
+          </v-row>
+          <v-form ref="module_form" class="pl-2">
                 <v-text-field
                     class="ml-10"
                     label="Название домашнего задания"
-                    v-model="newHomeWork.homeworkName"
-                    :rules="inputHomeworkRules">
+                >
                 </v-text-field>
 
                 <v-file-input
@@ -24,36 +25,45 @@
 
                 <v-textarea class="mt-5 ml-10"
                             label="Дополнительный текст домашнего задания"
-                            v-model="newHomeWork.homeWorkText"/>
+                />
 
                 <v-row justify="space-around">
-                  <v-btn @click="publicate" color="primary">Опубликовать</v-btn>
-                  <v-btn @click="resetForm" color="error">Отменить</v-btn>
+                  <v-btn color="primary">Опубликовать</v-btn>
+                  <v-btn color="error">Отменить</v-btn>
                 </v-row>
           </v-form>
         </v-col>
         <v-col cols="3">
-          <v-form ref="">
+          <v-row class="justify-center ma-5">
+            <h3>Добавление задания</h3>
+          </v-row>
+          <v-form ref="task_form">
 
                 <v-text-field
                     class="ml-10"
                     label="Название домашнего задания"
-                    v-model="newHomeWork.homeworkName"
+                    v-model="newHomeWork.name"
                     :rules="inputHomeworkRules">
                 </v-text-field>
 
                 <v-file-input
-                    label="Тесты для проверки">
+                    label="Тесты для проверки"
+                    v-model="newHomeWork.tests"
+                    :rules="filesHomeworkRules">
+                >
+
                 </v-file-input>
 
                 <v-file-input
                     class="mt-5"
-                    label="Дополнительные файлы задания">
+                    label="Дополнительные файлы задания"
+                    v-model="newHomeWork.extraFiles"
+                >
                 </v-file-input>
 
                 <v-textarea class="mt-5 ml-10"
                             label="Дополнительный текст домашнего задания"
-                            v-model="newHomeWork.homeWorkText"/>
+                            v-model="newHomeWork.text"/>
 
                 <v-row justify="space-around">
                   <v-btn @click="publicate" color="primary">Опубликовать</v-btn>
@@ -76,6 +86,7 @@
                     <template #item="element">
                       <div class="mt-2">
                         <span
+                            @click="pushToTask(element)"
                             class="text-blue-accent-4 dragndrop_item_el"
                             v-for="el in element"
                             :key="el.id"
@@ -116,13 +127,19 @@ export default {
     return {
       block: true,
       newHomeWork: {
-        homeworkName: "",
-        homeWorkText: ""
+        name: "",
+        tests: [],
+        extraFiles: [],
+        text: ""
       },
       courseTasks: {},
       inputHomeworkRules: [
-        value => !!value || 'Введите название',
+        value => !!value || 'Обязательное поле',
         value => (value && value.length >= 3) || 'Название должно содержать больше 3 символов',
+      ],
+      filesHomeworkRules: [
+        v => !!v || 'File is required',
+        v => (v && v.length > 0) || 'File is required',
       ],
       dragging: false,
     }
@@ -132,31 +149,45 @@ export default {
       this.courseTasks = await getTasksByCourseId(window.localStorage.getItem("recentlyVisitedCourse"));
     },
     async publicate() {
-      const res = await this.$refs.form.validate();
+      const res = await this.$refs.task_form.validate();
       if (res.valid === true) {
         if (this.courseTasks.tasks.length !== 0) {
-          this.courseTasks.tasks.push({
-            id: this.courseTasks.tasks.length + 1,
-            name: this.newHomeWork.homeworkName
+          this.courseTasks.tasks[0].tasks.push({
+            taskId: this.countNewId(),
+            taskName: this.newHomeWork.name,
+            testFiles: this.newHomeWork.tests,
+            extraFiles: this.newHomeWork.extraFiles,
+            taskText: this.newHomeWork.text
           });
           this.resetForm();
         } else {
           this.courseTasks.tasks[0] = {
-            id: 1,
-            name: this.newHomeWork.homeworkName
+            taskId: 1,
+            taskName: this.newHomeWork.name
           }
         }
-        this.newHomeWork.homeWorkText = "";
-        this.newHomeWork.homeworkName = "";
+        this.newHomeWork.name = "";
+        this.newHomeWork.text = "";
       }
     },
     resetOrder() {
       this.courseTasks.tasks = this.courseTasks.tasks.sort((a, b) => a.id - b.id);
     },
     resetForm() {
-      this.$refs.form.resetValidation();
-      this.newHomeWork.homeworkName = "";
-      this.newHomeWork.homeWorkText = ""
+      this.$refs.task_form.resetValidation();
+      this.newHomeWork.name = "";
+      this.newHomeWork.text = ""
+    },
+    pushToTask(el) {
+      const task = el.element;
+      console.log(`${task.taskId} ${task.taskName} pushed to task`);
+    },
+    countNewId() {
+      let newId = 0;
+      for (const el  of this.courseTasks.tasks) {
+        newId += el.tasks.length;
+      }
+      return (newId + 1);
     }
   },
   watch: {
