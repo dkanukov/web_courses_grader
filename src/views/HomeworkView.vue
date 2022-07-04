@@ -1,68 +1,100 @@
 <template>
   <div>
-    <HeaderComp title="Добавление домашнего задания" link="/CourseView"/>
-    <v-form ref="form">
+    <HeaderComp title="Редактирование курса" link="/CourseView"/>
+    <div class="container">
       <v-row>
-        <v-col class="ml-15 mt-16" cols="5">
+        <v-col cols="3">
+          <v-form ref="form" class="pl-2">
 
-          <v-text-field
-              class="ml-10"
-              label="Название домашнего задания"
-              v-model="newHomeWork.homeworkName"
-              :rules="inputHomeworkRules">
-          </v-text-field>
+                <v-text-field
+                    class="ml-10"
+                    label="Название домашнего задания"
+                    v-model="newHomeWork.homeworkName"
+                    :rules="inputHomeworkRules">
+                </v-text-field>
 
-          <v-file-input
-              class="mt-15"
-              label="Тесты для проверки">
-          </v-file-input>
+                <v-file-input
+                    label="Тесты для проверки">
+                </v-file-input>
 
-          <v-file-input
-              class="mt-5"
-              label="Дополнительные файлы задания">
-          </v-file-input>
+                <v-file-input
+                    class="mt-5"
+                    label="Дополнительные файлы задания">
+                </v-file-input>
 
-          <v-textarea class="mt-5 ml-10"
-                      label="Дополнительный текст домашнего задания"
-                      v-model="newHomeWork.homeWorkText"/>
+                <v-textarea class="mt-5 ml-10"
+                            label="Дополнительный текст домашнего задания"
+                            v-model="newHomeWork.homeWorkText"/>
 
-          <v-row justify="space-around">
-            <v-btn @click="publicate" color="primary">Опубликовать</v-btn>
-            <v-btn @click="resetForm" color="error">Отменить</v-btn>
-          </v-row>
+                <v-row justify="space-around">
+                  <v-btn @click="publicate" color="primary">Опубликовать</v-btn>
+                  <v-btn @click="resetForm" color="error">Отменить</v-btn>
+                </v-row>
+          </v-form>
         </v-col>
+        <v-col cols="3">
+          <v-form ref="">
 
+                <v-text-field
+                    class="ml-10"
+                    label="Название домашнего задания"
+                    v-model="newHomeWork.homeworkName"
+                    :rules="inputHomeworkRules">
+                </v-text-field>
+
+                <v-file-input
+                    label="Тесты для проверки">
+                </v-file-input>
+
+                <v-file-input
+                    class="mt-5"
+                    label="Дополнительные файлы задания">
+                </v-file-input>
+
+                <v-textarea class="mt-5 ml-10"
+                            label="Дополнительный текст домашнего задания"
+                            v-model="newHomeWork.homeWorkText"/>
+
+                <v-row justify="space-around">
+                  <v-btn @click="publicate" color="primary">Опубликовать</v-btn>
+                  <v-btn @click="resetForm" color="error">Отменить</v-btn>
+                </v-row>
+          </v-form>
+        </v-col>
         <v-spacer/>
-
         <v-col cols="5">
-          <draggable
-              class="mt-16"
-              item-key="element.id"
-              v-model="courseTasks.tasks"
-              @start="dragging = true"
-              @end="dragging = false">
+            <draggable
+                class="v-row"
+                item-key="element.id"
+                v-model="courseTasks.tasks"
+                @start="dragging = true"
+                @end="dragging = false">
               <template #item="{element}">
-                <div class="dragndrop_item mt-10" style="border-radius: 10px">
+                <div class="dragndrop_item v-col-6 ml-5 mt-5" style="border-radius: 10px">
                   <h3>{{element.moduleName}}</h3>
                   <nested-draggable v-model="element.tasks" item-key="element.taskName" class="list-group" group="people">
                     <template #item="element">
-                      <div>
-                        <p v-for="el in element" :key="el.id">{{el.taskName}}</p>
+                      <div class="mt-2">
+                        <span
+                            class="text-blue-accent-4 dragndrop_item_el"
+                            v-for="el in element"
+                            :key="el.id"
+                        >
+                          {{el.taskName}}
+                        </span>
                       </div>
                     </template>
-
                   </nested-draggable>
                 </div>
               </template>
-          </draggable>
-            <v-row class="mt-lg-5">
-              <v-btn class="ml-8" color="primary">Сохранить</v-btn>
-              <v-btn @click="resetOrder" class="ml-lg-5" color="error">Отменить</v-btn>
+            </draggable>
+            <v-row class="mt-10">
+              <v-btn color="primary">Сохранить</v-btn>
+              <v-btn @click="resetOrder" color="error" class="ml-5"> Отменить</v-btn>
             </v-row>
         </v-col>
-
       </v-row>
-  </v-form>
+    </div>
 
   </div>
 </template>
@@ -98,7 +130,6 @@ export default {
   methods: {
     async getTasks() {
       this.courseTasks = await getTasksByCourseId(window.localStorage.getItem("recentlyVisitedCourse"));
-      console.log(this.courseTasks);
     },
     async publicate() {
       const res = await this.$refs.form.validate();
@@ -128,6 +159,14 @@ export default {
       this.newHomeWork.homeWorkText = ""
     }
   },
+  watch: {
+    courseTasks: {
+      handler() {
+        console.log(this.courseTasks);
+      },
+      deep: true,
+    },
+  },
   mounted() {
     this.getTasks();
   }
@@ -136,10 +175,15 @@ export default {
 
 <style scoped>
 .dragndrop_item {
-  cursor: pointer;
+  cursor: move;
   max-width: 300px;
   text-align: center;
   border: 1px solid black;
 }
+
+.dragndrop_item_el {
+  cursor: pointer;
+}
+
 
 </style>
