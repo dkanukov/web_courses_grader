@@ -3,6 +3,8 @@
     <HeaderComp title="Редактирование курса" link="/CourseView"/>
     <div class="container">
       <v-row>
+        <!--  TODO: -refactor module adding
+                    -create view for tasks -->
         <v-col cols="3">
           <v-row class="justify-center ma-5">
             <h3>Добавление модуля</h3>
