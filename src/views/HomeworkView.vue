@@ -12,25 +12,18 @@
           <v-form ref="module_form" class="pl-2">
                 <v-text-field
                     class="ml-10"
-                    label="Название домашнего задания"
+                    label="Название нового модуля"
+                    v-model="newModule.moduleName"
                 >
                 </v-text-field>
 
-                <v-file-input
-                    label="Тесты для проверки">
-                </v-file-input>
-
-                <v-file-input
-                    class="mt-5"
-                    label="Дополнительные файлы задания">
-                </v-file-input>
-
                 <v-textarea class="mt-5 ml-10"
-                            label="Дополнительный текст домашнего задания"
+                            label="Описание модуля"
+                            v-model="newModule.moduleText"
                 />
 
                 <v-row justify="space-around">
-                  <v-btn color="primary">Опубликовать</v-btn>
+                  <v-btn @click="addNewModule" color="primary">Добавить</v-btn>
                   <v-btn color="error">Отменить</v-btn>
                 </v-row>
           </v-form>
@@ -68,7 +61,7 @@
                             v-model="newHomeWork.text"/>
 
                 <v-row justify="space-around">
-                  <v-btn @click="publicate" color="primary">Опубликовать</v-btn>
+                  <v-btn @click="publicate" color="primary">Добавить</v-btn>
                   <v-btn @click="resetForm" color="error">Отменить</v-btn>
                 </v-row>
           </v-form>
@@ -82,7 +75,7 @@
                 @start="dragging = true"
                 @end="dragging = false">
               <template #item="{element}">
-                <div class="dragndrop_item v-col-6 ml-5 mt-5" style="border-radius: 10px">
+                <div class="dragndrop_item v-col-6 v-col-lg-5 ml-5 mt-5" style="border-radius: 10px">
                   <h3>{{element.moduleName}}</h3>
                   <nested-draggable v-model="element.tasks" item-key="element.taskName" class="list-group" group="people">
                     <template #item="element">
@@ -134,6 +127,10 @@ export default {
         extraFiles: [],
         text: ""
       },
+      newModule: {
+        moduleName: "",
+        moduleText: ""
+      },
       courseTasks: {},
       inputHomeworkRules: [
         value => !!value || 'Обязательное поле',
@@ -155,7 +152,7 @@ export default {
       if (res.valid === true) {
         if (this.courseTasks.tasks.length !== 0) {
           this.courseTasks.tasks[0].tasks.push({
-            taskId: this.countNewId(),
+            taskId: this.countNewIdTask(),
             taskName: this.newHomeWork.name,
             testFiles: this.newHomeWork.tests,
             extraFiles: this.newHomeWork.extraFiles,
@@ -184,13 +181,34 @@ export default {
       const task = el.element;
       console.log(`${task.taskId} ${task.taskName} pushed to task`);
     },
-    countNewId() {
+    async addNewModule(){
+      console.log(this.courseTasks);
+      const isValid = await this.$refs.module_form.validate();
+      if (isValid) {
+        this.courseTasks.tasks.push({
+          taskId: this.countNewIdModule(),
+          moduleName: this.newModule.moduleName,
+          moduleText: this.newModule.moduleText,
+          tasks: []
+        });
+        this.resetForm();
+      }
+
+    },
+    countNewIdTask() {
       let newId = 0;
       for (const el  of this.courseTasks.tasks) {
         newId += el.tasks.length;
       }
       return (newId + 1);
-    }
+    },
+    countNewIdModule() {
+      let newId = 0;
+      for (const el  of this.courseTasks.tasks) {
+        newId += el.tasks.length;
+      }
+      return (newId + 1);
+    },
   },
   watch: {
     courseTasks: {
