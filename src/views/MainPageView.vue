@@ -16,13 +16,13 @@
             <course-card
                 :course-name="element.name"
                 :course-status="element.status"
-                :courseType="element.type"
+                :course-type="element.type"
+                :course-descr="element.description"
+                :course-id="element.id"
             />
           </v-col>
         </v-row>
       </v-col>
-
-      <v-divider vertical=""></v-divider>
 
       <v-col
           cols = "6"
@@ -37,6 +37,7 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCardComp";
+import {mapGetters, mapActions} from "vuex"
 
 export default {
   components: {
@@ -46,12 +47,24 @@ export default {
   },
   data () {
     return {
-      coursesMainPage: [
-        {index: 1, name: "Test1", status: "inAction", type: "open"},
-        {index: 2, name: "Test2", status: "closed", type: "open"},
-        {index: 3, name: "Test3", status: "inAction", type: "closed"},
-        {index: 4, name: "Test4", status: "inDev", type: "closed"}
-      ]
+      coursesMainPage: [],
+    }
+  },
+  computed: {
+    ...mapGetters(["allCourses"]),
+  },
+  methods: {
+    ...mapActions(["fetchCourses"]),
+  },
+  watch: {
+
+  },
+  async mounted() {
+    //Delete when get database of users and make a login page
+    window.localStorage.setItem("userId", "1");
+    if (!this.coursesMainPage.length) {
+      await this.fetchCourses();
+      this.coursesMainPage = this.allCourses.slice(this.allCourses.length - 4);
     }
   }
 }

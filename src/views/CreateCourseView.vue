@@ -79,8 +79,8 @@ function createJson(data) {
   let file = new Blob([data], {type: "text/plain"});
   link.href = URL.createObjectURL(file);
   link.download = "test.json";
-  link.click();
-  console.log(file)
+  //Remove comment if you need to download json file with new course info
+  // link.click();
 }
 
 export default {
