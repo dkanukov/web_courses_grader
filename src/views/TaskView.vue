@@ -1,10 +1,10 @@
 <template>
-
+  <div>check</div>
 </template>
 
 <script>
 export default {
-  name: "CreateCourse"
+  name: "TaskView"
 }
 </script>
 

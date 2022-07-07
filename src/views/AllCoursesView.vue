@@ -6,8 +6,8 @@
       <v-spacer/>
 
       <v-col
-      cols="5"
-      align-self="center"
+        cols="5"
+        align-self="center"
       >
         <v-row >
           <v-checkbox v-model="pageStatus.categories" id="inDev" value="inDev" color="info" label="В разработке"></v-checkbox>
@@ -17,7 +17,10 @@
       </v-col>
 
       <v-col>
-        <v-text-field v-model.trim="pageStatus.inputSearch" label="Введите название курса"/>
+        <v-text-field
+            v-model.trim="pageStatus.inputSearch"
+            label="Введите название курса"
+        />
       </v-col>
     </v-row>
     <v-row
@@ -25,24 +28,30 @@
         v-if="filteredCourses.length !== 0"
     >
       <v-col
-      v-for="element in displayCourses"
-      cols="3"
-      :key="element"
+        v-for="element in displayCourses"
+        cols="3"
+        :key="element"
       >
         <CourseCard
             :course-name="element.name"
             :course-status="element.status"
-            :courseType="element.type"
+            :course-type="element.type"
+            :course-descr="element.description"
+            :course-id="element.id"
         />
       </v-col>
     </v-row>
     <v-row
-    justify="center"
-    v-else
+      justify="center"
+      v-else
     >
       <h2 class="text-red font-weight-bold">Курс не найден, проверьте название</h2>
     </v-row>
-    <v-row justify="center" class="mt-5" v-show="paginationLength !== 0">
+    <v-row
+        justify="center"
+        class="mt-5"
+        v-show="paginationLength !== 0"
+    >
       <v-pagination
         :length="paginationLength"
         v-model="pageStatus.page"
@@ -58,6 +67,7 @@
 import HeaderComp from '@/components/HeaderComp';
 import FooterComp from '@/components/FooterComp';
 import CourseCard from "@/components/CourseCardComp";
+import {mapGetters, mapActions} from "vuex";
 
 export default {
   name: "CoursePage",
@@ -68,34 +78,17 @@ export default {
   },
   data () {
     return {
-      coursesPage: [
-        {index: 1, name: "Test1", status: "inAction", type: "open"},
-        {index: 2, name: "Test2", status: "closed", type: "open"},
-        {index: 3, name: "Test3", status: "inAction", type: "closed"},
-        {index: 4, name: "Test4", status: "inDev", type: "closed"},
-        {index: 5, name: "Test5", status: "inAction", type: "open"},
-        {index: 6, name: "Test6", status: "closed", type: "open"},
-        {index: 7, name: "Test7", status: "inAction", type: "closed"},
-        {index: 8, name: "Test8", status: "inDev", type: "closed"},
-        {index: 9, name: "Test9", status: "inAction", type: "open"},
-        {index: 10, name: "Test10", status: "closed", type: "open"},
-        {index: 11, name: "Test11", status: "inAction", type: "closed"},
-        {index: 12, name: "Test12", status: "inDev", type: "closed"},
-        {index: 9, name: "Test9", status: "inAction", type: "open"},
-        {index: 10, name: "Test10", status: "closed", type: "open"},
-        {index: 11, name: "Test11", status: "inAction", type: "closed"},
-        {index: 12, name: "Test12", status: "inDev", type: "closed"},
-      ],
+      coursesPage: [],
       pageStatus: {
         inputSearch: "",
         categories: [],
         page: 1,
       },
       displayCourses: [],
-      testAxios: null,
     }
   },
   methods: {
+    ...mapActions(["fetchCourses"]),
     trimCourses(status) {
       if (this.filteredCourses.length >= 4) {
         if (status.page === 1) {
@@ -106,9 +99,16 @@ export default {
       } else {
         this.displayCourses = this.filteredCourses
       }
+    },
+    async getCourses() {
+      await this.fetchCourses()
+          .then(() => {
+            this.coursesPage = this.allCourses;
+          })
     }
   },
   computed: {
+    ...mapGetters(["allCourses"]),
     filteredCourses: function () {
       let i = this;
       let filters = this.pageStatus.categories;
@@ -119,8 +119,8 @@ export default {
           })
     },
     paginationLength: function () {
-      return this.filteredCourses.length / 4;
-    }
+      return Math.ceil(this.filteredCourses.length / 4);
+    },
   },
   watch: {
     pageStatus: {
@@ -130,6 +130,14 @@ export default {
       deep: true,
       immediate: true
     },
+  },
+  mounted() {
+    if (this.allCourses.length === undefined) {
+       this.getCourses();
+    } else {
+      this.coursesPage = this.allCourses;
+
+    }
   },
 }
 </script>

@@ -2,14 +2,13 @@
   <div>
     <HeaderComp title="Редактирование курса" link="/CourseView"/>
     <v-form ref="form" style="margin-top: 100px;" lazy-validation>
-      <v-row align="center" justify="space-around">
+      <v-row align="top" justify="space-around">
         <v-col cols="4">
           <v-row justify="center" class="mb-5">
             <h2>Описание курса</h2>
           </v-row>
-          <v-text-field
-              v-model="editedCourse.courseDescr"
-              hide-details="auto"
+          <v-textarea
+              v-model="course.courseDescr"
           />
         </v-col>
 
@@ -20,8 +19,7 @@
           <v-text-field
             required
             :rules="emailRules"
-            v-model="editedCourse.newEmail"
-            hide-details="auto"
+            v-model="course.courseEmail"
           />
         </v-col>
       </v-row>
@@ -34,7 +32,7 @@
           <v-select
               class="text-no-wrap"
               :items="courseStatus"
-              v-model="editedCourse.courseStatus"
+              v-model="course.courseStatus"
           />
         </v-col>
         <v-col cols="3">
@@ -42,9 +40,9 @@
             <h2>Изменить тип курса</h2>
           </v-row>
           <v-select
-              class="pl-15"
+            class="pl-15"
             :items="courseType"
-            v-model="editedCourse.courseType"
+            v-model="course.courseType"
           />
         </v-col>
       </v-row>
@@ -78,6 +76,7 @@
 
 <script>
 import HeaderComp from "@/components/HeaderBackRowComp";
+import {getCourseByCourseId, getUserById} from '@/services/fetchers';
 export default {
   name: "CourseEditorView",
   components: {
@@ -85,27 +84,47 @@ export default {
   },
   data() {
     return {
-      editedCourse: {
-        courseDescr: "Описание которое потом получим с сервера",
-        newEmail: "testmail@gmail.com",
-        courseType: "Открытый",
-        courseStatus: "Закрыт",
+      course: {
+        courseDescr: "",
+        courseEmail: "",
+        courseType: "",
+        courseStatus: "",
       },
       courseType: ["Открытый", "Закрытый"],
       courseStatus: ["Открыт", "В разработке", "Закрыт"],
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'E-mail must be valid',
-      ]
+        v => !!v || 'Обязательное поле',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+      
     }
   },
   methods: {
     submitForm () {
       this.$refs.form.validate();
+      //add watcher which will compare info, then make post to server
     },
     resetForm () {
       this.$refs.form.reset();
+    },
+    async getInfo () {
+      const course = await getCourseByCourseId(window.localStorage.getItem("recentlyVisitedCourse"));
+      const user = await getUserById(window.localStorage.getItem("userId"));
+      this.course.courseDescr = course.description;
+      this.course.courseEmail = user.email;
+      this.course.courseStatus =
+          (course.status === 'inAction') ? 'Открыт' :
+          (course.status === 'inDev') ? 'В разработке' :
+          (course.status === 'closed') ? 'Закрыт' :
+          "Error";
+      this.course.courseType =
+          (course.type === 'open') ? 'Открытый' :
+          (course.type === 'closed') ? 'Закрытый' :
+          "Error";
     }
+  },
+  mounted() {
+    this.getInfo();
   },
 }
 </script>

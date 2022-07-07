@@ -6,6 +6,7 @@ import CourseView from "@/views/CourseView";
 import CourseEditorView from "@/views/CourseEditorView";
 import CreateCourseView from "@/views/CreateCourseView";
 import HomeworkView from "@/views/HomeworkView";
+import TaskView from "@/views/TaskView";
 
 const routes = [
   {
@@ -35,6 +36,10 @@ const routes = [
   {
     path: '/CreateCourseView',
     component: CreateCourseView
+  },
+  {
+    path: '/CourseView/HomeworkView/TaskView',
+    component: TaskView
   }
 ]
 
