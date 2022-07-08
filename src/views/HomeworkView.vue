@@ -3,8 +3,6 @@
     <HeaderComp title="Редактирование курса" link="/CourseView"/>
     <div class="container">
       <v-row>
-        <!--  TODO:
-                    -create view for tasks -->
         <v-col cols="3">
           <v-row class="justify-center ma-5">
             <h3>Добавление модуля</h3>
@@ -180,6 +178,14 @@ export default {
     pushToTask(el) {
       const task = el.element;
       console.log(`${task.taskId} ${task.taskName} pushed to task`);
+      this.$router.push({
+        path: '/CourseView/HomeworkView/TaskView',
+        query: {
+          userId: this.courseTasks.userId,
+          courseId: this.courseTasks.courseId,
+          taskId: task.taskId,
+        }
+      })
     },
     async addNewModule(){
       console.log(this.courseTasks);

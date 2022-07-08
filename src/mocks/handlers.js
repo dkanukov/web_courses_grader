@@ -42,14 +42,14 @@ const coursesModulesTasks = [
             {id: 4, moduleName: "Module4", tasks: []},
             {id: 5, moduleName: "Module5", tasks: []},
         ]},
-    {id: 2, userId: 1, courseId: 9, tasks: []},
-    {id: 3, userId: 1, courseId: 8, tasks: []},
-    {id: 4, userId: 1, courseId: 7, tasks: []},
-    {id: 5, userId: 1, courseId: 6, tasks: []},
-    {id: 6, userId: 1, courseId: 5, tasks: []},
-    {id: 7, userId: 1, courseId: 4, tasks: []},
-    {id: 8, userId: 1, courseId: 3, tasks: []},
-    {id: 9, userId: 1, courseId: 2, tasks: []}
+    {id: 2, userId: 1, courseId: 2, tasks: []},
+    {id: 3, userId: 1, courseId: 3, tasks: []},
+    {id: 4, userId: 1, courseId: 4, tasks: []},
+    {id: 5, userId: 1, courseId: 5, tasks: []},
+    {id: 6, userId: 1, courseId: 6, tasks: []},
+    {id: 7, userId: 1, courseId: 7, tasks: []},
+    {id: 8, userId: 1, courseId: 8, tasks: []},
+    {id: 9, userId: 1, courseId: 9, tasks: []}
 ]
 
 export default [
@@ -78,5 +78,21 @@ export default [
         return res (
             ctx.json(result)
         )
+    }),
+    rest.get('/getTaskDataByTaskId', (req, res, ctx) => {
+        const userId = req.url.searchParams.get('userId');
+        const courseId = req.url.searchParams.get('courseId');
+        const taskId = req.url.searchParams.get('taskId');
+        const courses = coursesModulesTasks.filter(element => element.userId === parseInt(userId));
+        const course = courses.filter(element => element.courseId === parseInt(courseId))[0].tasks;
+        for (let i = 0; i < course.length; i++) {
+            for (let j = 0; j < course[i].tasks.length; j++) {
+                if (course[i].tasks[j].taskId === parseInt(taskId)) {
+                    return res (
+                        ctx.json(course[i].tasks[j])
+                    )
+                }
+            }
+        }
     })
 ]

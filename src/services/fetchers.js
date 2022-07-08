@@ -19,3 +19,8 @@ export const getTasksByCourseId = async function(id) {
     const response = await axios.get('/getTasksByCourseId?id=' + id);
     return response.data;
 }
+
+export const getTaskDataByTaskId = async function(userId, courseId, taskId) {
+    const response = await axios.get('/getTaskDataByTaskId?userId=' + userId+ "&courseId=" + courseId + "&taskId=" + taskId);
+    return response.data;
+}
